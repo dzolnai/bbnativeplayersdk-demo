@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">BB Native Player SDK Demo</string>
+    <string name="apiButtonText">API</string>
+    <string name="videoListButtonText">Video List</string>
+    <string name="inOutViewButtonText">In-Out-View</string>
+    <string name="outstreamButtonText">Outstream</string>
+    <string name="prePostRollButtonText">Pre-Post-Roll</string>
+    <string name="webviewButtonText">Webview</string>
+    <string name="background">background image</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

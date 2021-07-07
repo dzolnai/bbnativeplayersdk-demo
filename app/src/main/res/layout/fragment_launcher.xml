@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/splash"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:screenOrientation="portrait"
+    android:theme="@android:style/Theme"
+    android:windowActionBar="true"
+    android:windowNoTitle="false"
+    android:windowFullscreen="false"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.LauncherFragment">
+
+    <ImageView
+            android:id="@+id/backgroundImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/background"
+            android:scaleType="fitXY"
+            android:src="@drawable/wallpaper_large"
+            tools:layout_editor_absoluteX="-189dp"
+            tools:layout_editor_absoluteY="-96dp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/subLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.bluebillywig.bbnativeplayersdk_demo.SquareButton
+                android:id="@+id/apiButton"
+                android:layout_width="0dp"
+                android:layout_height="180dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/gradient_api"
+                android:bottomRightRadius="16dp"
+                android:stateListAnimator="@drawable/gradient_webview"
+                android:text="@string/apiButtonText"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnPrimary"
+                app:layout_constraintEnd_toStartOf="@+id/videoListButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.bluebillywig.bbnativeplayersdk_demo.SquareButton
+                android:id="@+id/videoListButton"
+                android:layout_width="0dp"
+                android:layout_height="180dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/gradient_videolist"
+                android:text="@string/videoListButtonText"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/apiButton"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.bluebillywig.bbnativeplayersdk_demo.SquareButton
+                android:id="@+id/inOutViewButton"
+                android:layout_width="0dp"
+                android:layout_height="180dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/gradient_inoutview"
+                android:text="@string/inOutViewButtonText"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnPrimary"
+                app:layout_constraintEnd_toStartOf="@+id/outstreamButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/apiButton" />
+
+            <com.bluebillywig.bbnativeplayersdk_demo.SquareButton
+                android:id="@+id/outstreamButton"
+                android:layout_width="0dp"
+                android:layout_height="180dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/gradient_outstream"
+                android:text="@string/outstreamButtonText"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/inOutViewButton"
+                app:layout_constraintTop_toBottomOf="@+id/videoListButton" />
+
+            <com.bluebillywig.bbnativeplayersdk_demo.SquareButton
+                android:id="@+id/prePostRollButton"
+                android:layout_width="0dp"
+                android:layout_height="180dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/gradient_prepostroll"
+                android:text="@string/prePostRollButtonText"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnPrimary"
+                app:layout_constraintEnd_toStartOf="@+id/webviewButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inOutViewButton" />
+
+            <com.bluebillywig.bbnativeplayersdk_demo.SquareButton
+                android:id="@+id/webviewButton"
+                android:layout_width="0dp"
+                android:layout_height="180dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/gradient_webview"
+                android:text="@string/webviewButtonText"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/prePostRollButton"
+                app:layout_constraintTop_toBottomOf="@+id/outstreamButton" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
