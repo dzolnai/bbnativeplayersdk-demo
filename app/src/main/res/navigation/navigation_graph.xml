@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@+id/launcherFragment" >
+
+    <fragment
+        android:id="@+id/launcherFragment"
+        android:name="com.bluebillywig.bbnativeplayersdk_demo.ui.LauncherFragment"
+        android:label="Blank"
+        tools:layout="@layout/fragment_launcher">
+        <action
+            android:id="@+id/action_launcherFragment_to_apiFragment"
+            app:destination="@id/apiFragment"/>
+        <action
+            android:id="@+id/action_launcherFragment_to_videoListFragment"
+            app:destination="@id/videoListFragment" />
+        <action
+            android:id="@+id/action_launcherFragment_to_inOutViewFragment"
+            app:destination="@id/inOutViewFragment" />
+        <action
+            android:id="@+id/action_launcherFragment_to_outstreamFragment"
+            app:destination="@id/outstreamFragment" />
+        <action
+            android:id="@+id/action_launcherFragment_to_prePostRollFragment"
+            app:destination="@id/prePostRollFragment" />
+        <action
+            android:id="@+id/action_launcherFragment_to_webviewFragment"
+            app:destination="@id/webviewFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/apiFragment"
+        android:name="com.bluebillywig.bbnativeplayersdk_demo.ApiFragment"
+        android:label="fragment_api"
+        tools:layout="@layout/fragment_api" >
+        <action
+            android:id="@+id/action_apiFragment_to_launcherFragment2"
+            app:destination="@id/launcherFragment"
+            app:popUpTo="@id/launcherFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/videoListFragment"
+        android:name="com.bluebillywig.bbnativeplayersdk_demo.VideoListFragment"
+        android:label="fragment_video_list"
+        tools:layout="@layout/fragment_video_list" />
+    <fragment
+        android:id="@+id/inOutViewFragment"
+        android:name="com.bluebillywig.bbnativeplayersdk_demo.InOutViewFragment"
+        android:label="fragment_in_out_view"
+        tools:layout="@layout/fragment_in_out_view" />
+    <fragment
+        android:id="@+id/outstreamFragment"
+        android:name="com.bluebillywig.bbnativeplayersdk_demo.OutstreamFragment"
+        android:label="fragment_outstream"
+        tools:layout="@layout/fragment_outstream" />
+    <fragment
+        android:id="@+id/prePostRollFragment"
+        android:name="com.bluebillywig.bbnativeplayersdk_demo.PrePostRollFragment"
+        android:label="fragment_pre_post_roll"
+        tools:layout="@layout/fragment_pre_post_roll" />
+    <fragment
+        android:id="@+id/webviewFragment"
+        android:name="com.bluebillywig.bbnativeplayersdk_demo.WebviewFragment"
+        android:label="fragment_webview"
+        tools:layout="@layout/fragment_webview" />
+
+</navigation>
