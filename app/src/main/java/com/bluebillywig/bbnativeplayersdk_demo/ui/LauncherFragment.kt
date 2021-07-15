@@ -17,30 +17,19 @@ class LauncherFragment : Fragment(), LifecycleObserver {
 	): View {
 		val view = inflater.inflate(R.layout.fragment_launcher, container, false)
 
-		view.findViewById<Button>(R.id.apiButton).setOnClickListener {
-			Navigation.findNavController(view).navigate(R.id.action_launcherFragment_to_apiFragment)
-		}
-
-		view.findViewById<Button>(R.id.videoListButton).setOnClickListener {
-			Navigation.findNavController(view).navigate(R.id.action_launcherFragment_to_videoListFragment)
-		}
-
-		view.findViewById<Button>(R.id.inOutViewButton).setOnClickListener {
-			Navigation.findNavController(view).navigate(R.id.action_launcherFragment_to_inOutViewFragment)
-		}
-
-		view.findViewById<Button>(R.id.outstreamButton).setOnClickListener {
-			Navigation.findNavController(view).navigate(R.id.action_launcherFragment_to_outstreamFragment)
-		}
-
-		view.findViewById<Button>(R.id.prePostRollButton).setOnClickListener {
-			Navigation.findNavController(view).navigate(R.id.action_launcherFragment_to_prePostRollFragment)
-		}
-
-		view.findViewById<Button>(R.id.webviewButton).setOnClickListener {
-			Navigation.findNavController(view).navigate(R.id.action_launcherFragment_to_webviewFragment)
-		}
+		addOnClickListener(view, R.id.apiButton, R.id.action_launcherFragment_to_apiFragment)
+		addOnClickListener(view, R.id.videoListButton, R.id.action_launcherFragment_to_videoListFragment)
+		addOnClickListener(view, R.id.inOutViewButton, R.id.action_launcherFragment_to_inOutViewFragment)
+		addOnClickListener(view, R.id.outstreamButton, R.id.action_launcherFragment_to_outstreamFragment)
+		addOnClickListener(view, R.id.prePostRollButton, R.id.action_launcherFragment_to_prePostRollFragment)
+		addOnClickListener(view, R.id.webviewButton, R.id.action_launcherFragment_to_webviewFragment)
 
 		return view
+	}
+
+	private fun addOnClickListener(view: View, buttonId: Int, actionId: Int) {
+		view.findViewById<Button>(buttonId).setOnClickListener {
+			Navigation.findNavController(view).navigate(actionId)
+		}
 	}
 }

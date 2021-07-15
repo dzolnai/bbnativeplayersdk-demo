@@ -1,0 +1,94 @@
+package com.bluebillywig.bbnativeplayersdk_demo
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.LinearLayout
+import androidx.fragment.app.DialogFragment
+import com.bluebillywig.bbnativeplayersdk.BBNativePlayer
+import com.bluebillywig.bbnativeplayersdk.BBNativePlayerView
+import com.bluebillywig.bbnativeplayersdk.BBNativePlayerViewDelegate
+import com.bluebillywig.bbnativeshared.Logger
+import com.bluebillywig.bbnativeshared.model.MediaClip
+
+/**
+ * A [DialogFragment] fullscreen subclass.
+ * Use the [PlayerDialogFragment.show] method to show a fullscreen player in an overlay.
+ */
+class PlayerDialogFragment : DialogFragment(), BBNativePlayerViewDelegate {
+	private lateinit var player: BBNativePlayerView
+	private lateinit var playerLayout: LinearLayout
+	private lateinit var dialogView: View
+
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
+		setStyle(STYLE_NORMAL, R.style.AppTheme_FullScreenDialog)
+
+		player = BBNativePlayer.createPlayerView(requireActivity(), "https://bb.dev.bbvms.com/p/floris_ads/c/1089624.json")
+		player.delegate = this
+	}
+
+	override fun onCreateView(
+		inflater: LayoutInflater,
+		container: ViewGroup?,
+		savedInstanceState: Bundle?
+	): View {
+		super.onCreateView(inflater, container, savedInstanceState)
+
+		// Inflate and set the layout for the dialog
+		// Pass null as the parent view because its going in the dialog layout
+		dialogView = inflater.inflate(R.layout.dialog_player, null)
+
+		playerLayout = dialogView.findViewById(R.id.playerLayout)
+
+		playerLayout.addView(player)
+
+		return dialogView
+	}
+
+	override fun didTriggerMediaClipLoaded(clipData: MediaClip?) {
+		super.didTriggerMediaClipLoaded(clipData)
+		var dar = clipData?.dar ?: "16:9"
+		val regex = Regex("\\d+:\\d+")
+		if (!dar.contains(regex)) {
+			dar = "16:9"
+		}
+
+		val (widthString, heightString) = dar.split(':')
+		val darWidth = widthString.toInt()
+		val darHeight = heightString.toInt()
+
+		val width = dialogView.width + 32
+		val height = dialogView.height + 32
+
+		Logger.d("PlayerDialogFragment", "width: ${width} height: ${height} darWidth: $darWidth darHeight: $darHeight")
+
+		if (height > width && darWidth > darHeight) {
+			// Portrait view and landscape video handling
+			val dialogHeight = width / darWidth * darHeight
+			Logger.d("PlayerDialogFragment", "Dialog calculated height: $dialogHeight")
+
+			val params = playerLayout.layoutParams
+			params.height = dialogHeight
+
+		} else if (width > height && darHeight > darWidth) {
+			// Landscape view and portrait video handling
+			val dialogWidth = height / darHeight * darWidth
+			Logger.d("PlayerDialogFragment", "Dialog calculated width: $dialogWidth")
+
+			val params = playerLayout.layoutParams
+			params.width = dialogWidth
+		}
+
+		playerLayout.visibility = View.VISIBLE
+	}
+
+	override fun onDestroyView() {
+		Logger.d("PlayerDialogFragment", "onDestroyView")
+		player.callApiMethod("pause", null)
+		player.destroy()
+		playerLayout.removeAllViews()
+		super.onDestroyView()
+	}
+}

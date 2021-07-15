@@ -19,9 +19,7 @@
             android:layout_height="match_parent"
             android:contentDescription="@string/background"
             android:scaleType="fitXY"
-            android:src="@drawable/wallpaper_large"
-            tools:layout_editor_absoluteX="-189dp"
-            tools:layout_editor_absoluteY="-96dp" />
+            android:src="@drawable/wallpaper_large"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/subLayout"

@@ -27,19 +27,14 @@
             app:destination="@id/prePostRollFragment" />
         <action
             android:id="@+id/action_launcherFragment_to_webviewFragment"
-            app:destination="@id/webviewFragment" />
+            app:destination="@id/webViewFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/apiFragment"
         android:name="com.bluebillywig.bbnativeplayersdk_demo.ApiFragment"
         android:label="fragment_api"
-        tools:layout="@layout/fragment_api" >
-        <action
-            android:id="@+id/action_apiFragment_to_launcherFragment2"
-            app:destination="@id/launcherFragment"
-            app:popUpTo="@id/launcherFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_api" />
     <fragment
         android:id="@+id/videoListFragment"
         android:name="com.bluebillywig.bbnativeplayersdk_demo.VideoListFragment"
@@ -61,8 +56,8 @@
         android:label="fragment_pre_post_roll"
         tools:layout="@layout/fragment_pre_post_roll" />
     <fragment
-        android:id="@+id/webviewFragment"
-        android:name="com.bluebillywig.bbnativeplayersdk_demo.WebviewFragment"
+        android:id="@+id/webViewFragment"
+        android:name="com.bluebillywig.bbnativeplayersdk_demo.WebViewFragment"
         android:label="fragment_webview"
         tools:layout="@layout/fragment_webview" />
 
