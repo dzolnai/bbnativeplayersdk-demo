@@ -1,5 +1,6 @@
 package com.bluebillywig.bbnativeplayersdk_demo
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +11,6 @@ import com.bluebillywig.bbnativeplayersdk.BBNativePlayer
 import com.bluebillywig.bbnativeplayersdk.BBNativePlayerView
 import com.bluebillywig.bbnativeplayersdk.BBNativePlayerViewDelegate
 import com.bluebillywig.bbnativeshared.Logger
-import com.bluebillywig.bbnativeshared.interfaces.MediaControllerInterface
 import com.bluebillywig.bbnativeshared.model.MediaClip
 
 /**
@@ -52,6 +52,9 @@ class PlayerDialogFragment(private var jsonUrl: String) : DialogFragment(), BBNa
 		// Inflate and set the layout for the dialog
 		// Pass null as the parent view because its going in the dialog layout
 		dialogView = inflater.inflate(R.layout.dialog_player, null)
+
+		// If we can get the playout background color, we can override it here
+		dialogView.setBackgroundColor(Color.BLACK)
 
 		playerLayout = dialogView.findViewById(R.id.playerLayout)
 

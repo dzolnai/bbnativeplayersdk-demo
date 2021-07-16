@@ -8,6 +8,7 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleObserver
 import androidx.navigation.Navigation
+import com.bluebillywig.bbnativeplayersdk_demo.PlayerDialogFragment
 import com.bluebillywig.bbnativeplayersdk_demo.R
 
 class LauncherFragment : Fragment(), LifecycleObserver {
@@ -21,8 +22,10 @@ class LauncherFragment : Fragment(), LifecycleObserver {
 		addOnClickListener(view, R.id.videoListButton, R.id.action_launcherFragment_to_videoListFragment)
 		addOnClickListener(view, R.id.inOutViewButton, R.id.action_launcherFragment_to_inOutViewFragment)
 		addOnClickListener(view, R.id.outstreamButton, R.id.action_launcherFragment_to_outstreamFragment)
-		addOnClickListener(view, R.id.prePostRollButton, R.id.action_launcherFragment_to_prePostRollFragment)
 		addOnClickListener(view, R.id.webviewButton, R.id.action_launcherFragment_to_webviewFragment)
+		view.findViewById<Button>(R.id.prePostRollButton).setOnClickListener {
+			PlayerDialogFragment("https://demo.bbvms.com/p/native_sdk_preroll/c/4256600.json").show(requireActivity().supportFragmentManager,"player")
+		}
 
 		return view
 	}
