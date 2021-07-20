@@ -5,55 +5,37 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import com.bluebillywig.bbnativeplayersdk.BBNativePlayer
+import com.bluebillywig.bbnativeplayersdk.BBNativePlayerView
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+private lateinit var player: BBNativePlayerView
+private lateinit var playerContainer: LinearLayout
+private lateinit var inOutViewView: View
 
-/**
- * A simple [Fragment] subclass.
- * Use the [InOutViewFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class InOutViewFragment : Fragment() {
-	// TODO: Rename and change types of parameters
-	private var param1: String? = null
-	private var param2: String? = null
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		arguments?.let {
-			param1 = it.getString(ARG_PARAM1)
-			param2 = it.getString(ARG_PARAM2)
-		}
+		player = BBNativePlayer.createPlayerView(requireActivity(), "https://demo.bbvms.com/p/native_sdk_inoutview/c/4256635.json")
 	}
 
 	override fun onCreateView(
-		inflater: LayoutInflater, container: ViewGroup?,
+		inflater: LayoutInflater,
+		container: ViewGroup?,
 		savedInstanceState: Bundle?
-	): View? {
-		// Inflate the layout for this fragment
-		return inflater.inflate(R.layout.fragment_in_out_view, container, false)
-	}
+	): View {
+		super.onCreateView(inflater, container, savedInstanceState)
 
-	companion object {
-		/**
-		 * Use this factory method to create a new instance of
-		 * this fragment using the provided parameters.
-		 *
-		 * @param param1 Parameter 1.
-		 * @param param2 Parameter 2.
-		 * @return A new instance of fragment InOutViewFragment.
-		 */
-		// TODO: Rename and change types and number of parameters
-		@JvmStatic
-		fun newInstance(param1: String, param2: String) =
-			InOutViewFragment().apply {
-				arguments = Bundle().apply {
-					putString(ARG_PARAM1, param1)
-					putString(ARG_PARAM2, param2)
-				}
-			}
+		// Inflate and set the layout for the dialog
+		// Pass null as the parent view because its going in the dialog layout
+		inOutViewView = inflater.inflate(R.layout.fragment_in_out_view, null)
+
+		playerContainer = inOutViewView.findViewById(R.id.playerContainerView)
+		playerContainer.addView(player)
+
+		// todo ?    set player size to be width and height 9/16 of width
+		return inOutViewView
 	}
 }

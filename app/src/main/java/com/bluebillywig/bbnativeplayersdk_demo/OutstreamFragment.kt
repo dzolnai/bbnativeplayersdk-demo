@@ -5,36 +5,39 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import androidx.core.view.doOnLayout
+import androidx.fragment.app.DialogFragment
+import com.bluebillywig.bbnativeplayersdk.BBNativePlayer
+import com.bluebillywig.bbnativeplayersdk.BBNativePlayerView
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+private lateinit var player: BBNativePlayerView
+private lateinit var playerContainer: LinearLayout
+private lateinit var outstreamView: View
 
-/**
- * A simple [Fragment] subclass.
- * Use the [OutstreamFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class OutstreamFragment : Fragment() {
-	// TODO: Rename and change types of parameters
-	private var param1: String? = null
-	private var param2: String? = null
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		arguments?.let {
-			param1 = it.getString(ARG_PARAM1)
-			param2 = it.getString(ARG_PARAM2)
-		}
+		player = BBNativePlayer.createPlayerView(requireActivity(), "https://demo.bbvms.com/a/native_sdk_outstream.json")
 	}
 
 	override fun onCreateView(
-		inflater: LayoutInflater, container: ViewGroup?,
+		inflater: LayoutInflater,
+		container: ViewGroup?,
 		savedInstanceState: Bundle?
-	): View? {
-		// Inflate the layout for this fragment
-		return inflater.inflate(R.layout.fragment_outstream, container, false)
+	): View {
+		super.onCreateView(inflater, container, savedInstanceState)
+
+		// Inflate and set the layout for the dialog
+		// Pass null as the parent view because its going in the dialog layout
+		outstreamView = inflater.inflate(R.layout.fragment_outstream, null)
+
+		playerContainer = outstreamView.findViewById(R.id.playerContainerView)
+		playerContainer.addView(player)
+
+		// todo ?    set player size to be width and height 9/16 of width
+		return outstreamView
 	}
 
 	companion object {
@@ -51,8 +54,7 @@ class OutstreamFragment : Fragment() {
 		fun newInstance(param1: String, param2: String) =
 			OutstreamFragment().apply {
 				arguments = Bundle().apply {
-					putString(ARG_PARAM1, param1)
-					putString(ARG_PARAM2, param2)
+
 				}
 			}
 	}
