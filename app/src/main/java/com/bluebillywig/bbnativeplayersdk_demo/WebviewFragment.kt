@@ -29,7 +29,9 @@ class WebViewFragment : Fragment() {
 		@JavascriptInterface
 		fun startPlayer(url: String?) {
 			Logger.d("Javascript interface", "start player called with url: $url")
-			PlayerDialogFragment().show(activity.supportFragmentManager, "player")
+			if (url != null) {
+				PlayerDialogFragment(url).show(activity.supportFragmentManager, "player")
+			}
 		}
 	}
 
@@ -50,7 +52,7 @@ class WebViewFragment : Fragment() {
 
 		webView.settings.javaScriptEnabled = true
 
-		webView.loadUrl("https://bluebillywig.tv/native-demo-android/?" + System.currentTimeMillis())
+		webView.loadUrl("https://bluebillywig.tv/native-demo/?" + System.currentTimeMillis())
 
 		return view
 	}

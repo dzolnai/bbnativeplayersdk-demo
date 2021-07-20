@@ -1,5 +1,6 @@
 package com.bluebillywig.bbnativeplayersdk_demo
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,16 +17,28 @@ import com.bluebillywig.bbnativeshared.model.MediaClip
  * A [DialogFragment] fullscreen subclass.
  * Use the [PlayerDialogFragment.show] method to show a fullscreen player in an overlay.
  */
-class PlayerDialogFragment : DialogFragment(), BBNativePlayerViewDelegate {
+class PlayerDialogFragment(private var jsonUrl: String) : DialogFragment(), BBNativePlayerViewDelegate {
 	private lateinit var player: BBNativePlayerView
 	private lateinit var playerLayout: LinearLayout
 	private lateinit var dialogView: View
+
+	private var seekOffset = 0.0;
+
+	// This constructor is used when rotating the android phone
+	constructor() : this("")
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setStyle(STYLE_NORMAL, R.style.AppTheme_FullScreenDialog)
 
-		player = BBNativePlayer.createPlayerView(requireActivity(), "https://bb.dev.bbvms.com/p/floris_ads/c/1089624.json")
+		Logger.d("PlayerDialogFragment", "Saved instance state: $savedInstanceState")
+
+		if (savedInstanceState != null) {
+			jsonUrl = savedInstanceState.getString("jsonUrl") ?: ""
+		}
+		Logger.d("PlayerDialogFragment", "json url: $jsonUrl")
+
+		player = BBNativePlayer.createPlayerView(requireActivity(), jsonUrl)
 		player.delegate = this
 	}
 
@@ -40,11 +53,22 @@ class PlayerDialogFragment : DialogFragment(), BBNativePlayerViewDelegate {
 		// Pass null as the parent view because its going in the dialog layout
 		dialogView = inflater.inflate(R.layout.dialog_player, null)
 
+		// If we can get the playout background color, we can override it here
+		dialogView.setBackgroundColor(Color.BLACK)
+
 		playerLayout = dialogView.findViewById(R.id.playerLayout)
 
 		playerLayout.addView(player)
 
 		return dialogView
+	}
+
+	// When this fragment is destroyed when rotating the device this will save the current state
+	override fun onSaveInstanceState(outState: Bundle) {
+		super.onSaveInstanceState(outState)
+		outState.putString("jsonUrl", jsonUrl)
+//		Logger.d("PlayerDialogFragment", "get current time ${player.getCurrentTime()}")
+		outState.putDouble("offset", seekOffset)
 	}
 
 	override fun didTriggerMediaClipLoaded(clipData: MediaClip?) {
@@ -82,6 +106,11 @@ class PlayerDialogFragment : DialogFragment(), BBNativePlayerViewDelegate {
 		}
 
 		playerLayout.visibility = View.VISIBLE
+	}
+
+	override fun didTriggerSeeked(seekOffset: Double?) {
+		super.didTriggerSeeked(seekOffset)
+		this.seekOffset = seekOffset ?: 0.0
 	}
 
 	override fun onDestroyView() {
