@@ -59,26 +59,36 @@ class VideoListFragment : Fragment(), CoroutineScope {
 		var clipList: ClipList
 
 		// Were using Dispatchers.IO here to get rid of the inappropriate blocking method call message
-		launch(Dispatchers.IO) {
+		launch(Dispatchers.Default) {
 			var repoListJsonStr = ""
 			repoListJsonStr = URL(cliplistUrl).readText()
 
 			// TODO Use MediaclipList from shared lib, but this breaks on not being able to create class ContentItem when retrieving the json
 			// clipList = Gson().fromJson(repoListJsonStr, MediaClipList::class.java)
 			clipList = Gson().fromJson(repoListJsonStr, ClipList::class.java)
+			if ( clipList != null ) {
+				clipList.items.forEachIndexed { index, it ->
+					val url = "${baseUrl}/p/default/c/${it.id}.json"
+					Logger.d("VideoListFragment", "fetchVideos clip: $url")
 
-			clipList.items.forEachIndexed { index, it ->
-				val url = "${baseUrl}/p/default/c/${it.id}.json"
-				Logger.d("VideoListFragment","fetchVideos clip: $url")
+					context?.let { context ->
+						val thumbnailUrl =
+							"${baseUrl}/mediaclip/${it.id}/pthumbnail/default/default.jpg?scalingMode=cover"
 
-				context?.let { context ->
-					val thumbnailUrl = "${baseUrl}/mediaclip/${it.id}/pthumbnail/default/default.jpg?scalingMode=cover"
-
-					// This is needed because UI updates can only be run on the main thread
-					ContextCompat.getMainExecutor(context).execute {
-						Logger.d("VideoListFragment", "Adding textview $index")
-						videoListLayout.addView(createTextView(context, it.description, url, thumbnailUrl, stageWidth))
-						videoListLayout.addView(createDivider())
+						// This is needed because UI updates can only be run on the main thread
+						ContextCompat.getMainExecutor(context).execute {
+							Logger.d("VideoListFragment", "Adding textview $index")
+							videoListLayout.addView(
+								createTextView(
+									context,
+									it.description,
+									url,
+									thumbnailUrl,
+									stageWidth
+								)
+							)
+							videoListLayout.addView(createDivider())
+						}
 					}
 				}
 			}
