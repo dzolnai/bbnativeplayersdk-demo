@@ -12,6 +12,7 @@ import com.bluebillywig.bbnativeplayersdk.BBNativePlayerView
 import com.bluebillywig.bbnativeplayersdk.BBNativePlayerViewDelegate
 import com.bluebillywig.bbnativeshared.Logger
 import com.bluebillywig.bbnativeshared.model.MediaClip
+import com.bluebillywig.bbnativeshared.enums.ApiMethod
 
 /**
  * A [DialogFragment] fullscreen subclass.
@@ -115,7 +116,7 @@ class PlayerDialogFragment(private var jsonUrl: String) : DialogFragment(), BBNa
 
 	override fun onDestroyView() {
 		Logger.d("PlayerDialogFragment", "onDestroyView")
-		player.callApiMethod("pause", null)
+		player.callApiMethod(ApiMethod.pause, null)
 		player.destroy()
 		playerLayout.removeAllViews()
 		super.onDestroyView()
