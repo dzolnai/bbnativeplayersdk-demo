@@ -3,12 +3,52 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".videoListFragment">
+    tools:context=".ApiFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:id="@+id/MainContainerLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context=".MainContainer"
+        android:layout_margin="20dp">
+
+        <LinearLayout
+            android:id="@+id/playerContainerView"
+            android:layout_width="352dp"
+            android:layout_height="198dp"
+            android:background="@color/teal_200"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
+        </LinearLayout>
+
+        <NumberPicker
+            android:id="@+id/apiMethodPicker"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+        </NumberPicker>
+
+        <TextView
+            android:id="@+id/outputText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_api"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:maxLines="1"
+            android:text="" />
+
+
+        <TextView
+            android:id="@+id/delegateText"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@drawable/border_api"
+            android:scrollbars="vertical"
+            android:text="" />
+    </LinearLayout>
 
 </FrameLayout>
