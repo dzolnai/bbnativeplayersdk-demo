@@ -79,7 +79,6 @@ class ApiFragment : Fragment(), BBNativePlayerViewDelegate {
 		outputText = apiView.findViewById(R.id.outputText)
 		outputText?.setPadding(10, 10, 10, 10);
 
-		// todo ?    set player size to be width and height 9/16 of width
 		return apiView
 	}
 
