@@ -257,7 +257,6 @@ class ApiFragment : Fragment(), BBNativePlayerViewDelegate {
 		addToEventDebugTextfield("Player API Delegate: didTriggerAutoPause")
 	}
 
-	// todo
 	override fun didTriggerAutoPausePlay(why: String?) {
 		addToEventDebugTextfield("Player API Delegate: didTriggerAutoPausePlay")
 	}
