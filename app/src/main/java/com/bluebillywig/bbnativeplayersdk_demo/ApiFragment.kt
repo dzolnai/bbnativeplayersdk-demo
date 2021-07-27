@@ -49,7 +49,7 @@ class ApiFragment : Fragment(), BBNativePlayerViewDelegate {
 		// Inflate and set the layout
 		// Pass null as the parent view because its going in the dialog layout
 		apiView = inflater.inflate(R.layout.fragment_api, null)
-		apiView.setBackgroundColor(Color.LTGRAY)
+
 		playerContainer = apiView.findViewById(R.id.playerContainerView)
 		playerContainer.addView(player)
 
