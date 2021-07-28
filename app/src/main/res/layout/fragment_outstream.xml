@@ -1,51 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".OutstreamFragment">
 
-    <ScrollView
-        android:background="@color/white"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/MainContainerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context=".MainContainer"
+        android:layout_margin="20dp">
 
+        <TextView
+            android:id="@+id/scrollTextTop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/scrollTextTop"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/playerContainerView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
-            android:id="@+id/MainContainerLayout"
+            android:id="@+id/playerContainerView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/teal_200"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            app:layout_constraintDimensionRatio="16:9"
+            app:layout_constraintBottom_toTopOf="@id/scrollTextBottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/scrollTextTop" />
+
+        <TextView
+            android:id="@+id/scrollTextBottom"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            tools:context=".MainContainer"
-            android:layout_margin="20dp">
+            android:layout_height="match_parent"
+            android:text="@string/scrollTextBottom"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/playerContainerView" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/scrollTextTop"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textSize="20dp"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Diam ut venenatis tellus in metus vulputate. Bibendum est ultricies integer quis auctor elit sed vulputate mi. Eros in cursus turpis massa tincidunt dui ut. Velit laoreet id donec ultrices tincidunt arcu non sodales neque. Adipiscing bibendum est ultricies integer quis.
-Sit amet cursus sit amet." />
-
-            <LinearLayout
-                android:id="@+id/playerContainerView"
-                android:layout_width="352dp"
-                android:layout_height="198dp"
-
-                android:background="@color/teal_200"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal">
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/scrollTextBottom"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textSize="20dp"
-                android:text="Malesuada proin libero nunc consequat interdum varius sit amet mattis. Sem integer vitae justo eget. Sed risus ultricies tristique nulla aliquet enim tortor at. Adipiscing enim eu turpis egestas.
-Felis bibendum ut tristique et egestas. Bibendum neque egestas congue quisque egestas. Augue lacus viverra vitae congue eu consequat. Vel orci porta non pulvinar neque laoreet suspendisse interdum consectetur. Facilisis leo vel fringilla est. Nisl purus in mollis nunc sed id semper risus. Vel fringilla est ullamcorper eget nulla. Odio morbi quis commodo odio aenean sed adipiscing diam. Sagittis id consectetur purus ut." />
-        </LinearLayout>
-    </ScrollView>
-
-</FrameLayout>
+</ScrollView>
 
