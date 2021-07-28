@@ -190,7 +190,7 @@ class ApiFragment : Fragment(), BBNativePlayerViewDelegate {
 				}
 			}
 			"OpenModalPlayer" -> {
-				//VideoModal()
+				activity?.let { PlayerDialogFragment("https://demo.bbvms.com/p/default/c/4256615.json").show(it.supportFragmentManager, "player") }
 			}
 		}
 	}
