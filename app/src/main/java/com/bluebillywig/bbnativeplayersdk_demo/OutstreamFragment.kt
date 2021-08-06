@@ -6,20 +6,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import androidx.core.view.doOnLayout
-import androidx.fragment.app.DialogFragment
 import com.bluebillywig.bbnativeplayersdk.BBNativePlayer
 import com.bluebillywig.bbnativeplayersdk.BBNativePlayerView
+import com.bluebillywig.bbnativeplayersdk.BBNativePlayerViewDelegate
+import com.bluebillywig.bbnativeshared.Logger
+import com.bluebillywig.bbnativeshared.enums.ApiProperty
 
-private lateinit var player: BBNativePlayerView
-private lateinit var playerContainer: LinearLayout
-private lateinit var outstreamView: View
-
-class OutstreamFragment : Fragment() {
+/**
+ * An outstream [Fragment] subclass.
+ * Shows an outstream ad between TextViews
+ */
+class OutstreamFragment : Fragment(), BBNativePlayerViewDelegate {
+	private lateinit var player: BBNativePlayerView
+	private lateinit var playerContainer: LinearLayout
+	private lateinit var outstreamView: View
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
+
+		// Create player view and display the ad using an ad embed url
 		player = BBNativePlayer.createPlayerView(requireActivity(), "https://demo.bbvms.com/a/native_sdk_outstream.json")
+		// To be able to listen to BBNativePlayer events, set the delegate to this
+		// Overridden function didSetupWithJsonUrl is an example of a delegate callback
+		player.delegate = this
 	}
 
 	override fun onCreateView(
@@ -36,8 +45,14 @@ class OutstreamFragment : Fragment() {
 		playerContainer = outstreamView.findViewById(R.id.playerContainerView)
 		playerContainer.addView(player)
 
-		// todo ?    set player size to be width and height 9/16 of width
 		return outstreamView
+	}
+
+	override fun didSetupWithJsonUrl(url: String?) {
+		super.didSetupWithJsonUrl(url)
+		Logger.d("OutstreamFragment", "setup completed for url: $url")
+		val playout = player.getApiProperty(ApiProperty.playoutData)
+		Logger.d("OutstreamFragment", "got playout: $playout")
 	}
 
 	companion object {

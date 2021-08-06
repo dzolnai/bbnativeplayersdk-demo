@@ -10,21 +10,22 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.bluebillywig.bbnativeplayersdk_demo.model.ClipList
 import com.bluebillywig.bbnativeshared.Logger
+import com.bluebillywig.bbnativeshared.model.*
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
-import com.google.gson.Gson
+import kotlinx.serialization.json.Json
 import kotlinx.coroutines.*
+import kotlinx.serialization.decodeFromString
 import java.net.URL
 import kotlin.coroutines.CoroutineContext
 
 /**
- * A simple [Fragment] subclass.
- * Use the [VideoListFragment.newInstance] factory method to
- * create an instance of this fragment.
+ * A video list [Fragment] subclass.
+ * Show a number of video thumbnails with description from
+ * a cliplist in a scrollable view
  */
 class VideoListFragment : Fragment(), CoroutineScope {
 	private lateinit var videoListView: View
@@ -52,41 +53,56 @@ class VideoListFragment : Fragment(), CoroutineScope {
 	}
 
 	private fun fetchVideos() {
-		val cliplistUrl = "${baseUrl}/json/search?cliplistid=1623750782772352&allowCache=true"
+		// Use this url to retrieve a cliplist using the clipListId
+		val cliplistUrl = "${baseUrl}/json/mediacliplist/1623750782772352"
 
 		val stageWidth = videoListView.width - (2 * outline)
 
-		var clipList: ClipList
+		var clipList: MediaClipList
+
+		var repoListJsonStr: String = ""
 
 		// Were using Dispatchers.IO here to get rid of the inappropriate blocking method call message
-		launch(Dispatchers.Default) {
-			var repoListJsonStr = ""
+		launch(Dispatchers.IO) {
 			repoListJsonStr = URL(cliplistUrl).readText()
 
-			// TODO Use MediaclipList from shared lib, but this breaks on not being able to create class ContentItem when retrieving the json
-			// clipList = Gson().fromJson(repoListJsonStr, MediaClipList::class.java)
-			clipList = Gson().fromJson(repoListJsonStr, ClipList::class.java)
-			if ( clipList != null ) {
-				clipList.items.forEachIndexed { index, it ->
-					val url = "${baseUrl}/p/default/c/${it.id}.json"
-					Logger.d("VideoListFragment", "fetchVideos clip: $url")
+			// Use Json to serialize the json data to a data object and retrieve the MediaClipList
+			val jsonParser = Json { ignoreUnknownKeys = true; isLenient = true; serializersModule = contentItemSerializersModule }
 
-					context?.let { context ->
-						val thumbnailUrl =
-							"${baseUrl}/mediaclip/${it.id}/pthumbnail/default/default.jpg?scalingMode=cover"
+			clipList = jsonParser.decodeFromString(repoListJsonStr)
 
+			clipList.items?.forEachIndexed { index, it ->
+				val url = "${baseUrl}/p/default/c/${it.id}.json"
+				Logger.d("VideoListFragment", "fetchVideos clip: $url")
+
+				context?.let { context ->
+					val thumbnailUrl =
+						"${baseUrl}/mediaclip/${it.id}/pthumbnail/default/default.jpg?scalingMode=cover"
+
+					var description = ""
+
+					Logger.d("VideoListFragment", "Item $index: $it")
+
+					if (it is MediaClip) {
+						description = it.description ?: it.title ?: ""
+					} else if (it is Project) {
+						description = it.title ?: ""
+					}
+
+					if (it is MediaClip || it is Project) {
 						// This is needed because UI updates can only be run on the main thread
 						ContextCompat.getMainExecutor(context).execute {
 							Logger.d("VideoListFragment", "Adding textview $index")
 							videoListLayout.addView(
 								createTextView(
 									context,
-									it.description,
+									description,
 									url,
 									thumbnailUrl,
 									stageWidth
 								)
 							)
+							// Add divider between TextViews
 							videoListLayout.addView(createDivider())
 						}
 					}
@@ -96,6 +112,7 @@ class VideoListFragment : Fragment(), CoroutineScope {
 	}
 
 	private fun createTextView(context: Context, text: String, jsonUrl: String, thumbnailUrl: String, width: Int): TextView {
+		// This TextView will be used to display the description and the thumbnail of the video
 		val textView = TextView(context)
 		val layoutParams = LinearLayout.LayoutParams(
 			LinearLayout.LayoutParams.MATCH_PARENT,
@@ -108,9 +125,11 @@ class VideoListFragment : Fragment(), CoroutineScope {
 		textView.ellipsize = TextUtils.TruncateAt.END
 		textView.setLines(2)
 		textView.setOnClickListener {
-			PlayerDialogFragment(jsonUrl).show(requireActivity().supportFragmentManager,"player")
+			// When clicking on the TextView open a fullscreen dialog
+			PlayerDialogFragment(jsonUrl, true).show(requireActivity().supportFragmentManager,"player")
 		}
 
+		// Retrieve the thumbnail and add to TextView element
 		Glide.with(context)
 			.load(thumbnailUrl)
 			.apply(RequestOptions().fitCenter()).into(

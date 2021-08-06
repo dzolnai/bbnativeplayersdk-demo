@@ -17,7 +17,6 @@ import androidx.core.view.WindowInsetsControllerCompat
 import androidx.navigation.Navigation.findNavController
 import com.bluebillywig.bbnativeshared.Logger
 
-
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

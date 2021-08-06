@@ -22,17 +22,20 @@ import com.bluebillywig.bbnativeshared.model.MediaClip
 import com.bluebillywig.bbnativeshared.model.Playout
 import com.bluebillywig.bbnativeshared.model.Project
 
-
-private lateinit var player: BBNativePlayerView
-private lateinit var playerContainer: LinearLayout
-private lateinit var apiView: View
-private lateinit var apiMethodPicker: NumberPicker
-private var delegateText: TextView? = null
-private var outputText: TextView? = null
-
 private var pickerVals = arrayOf("Select API method", "Play", "Pause", "Seek", "Mute", "Unmute", "Load","getMuted", "getDuration", "getPhase", "getState", "getMode", "getClipData", "getPlayoutData", "getProjectData", "getVolume", "OpenModalPlayer")
 
+/**
+ * An api list [Fragment] subclass.
+ * Show a selector with all of the api methods and see
+ * the player (BBNativePlayerView) respond to those methods
+ */
 class ApiFragment : Fragment(), BBNativePlayerViewDelegate {
+	private lateinit var player: BBNativePlayerView
+	private lateinit var playerContainer: LinearLayout
+	private lateinit var apiView: View
+	private lateinit var apiMethodPicker: NumberPicker
+	private var delegateText: TextView? = null
+	private var outputText: TextView? = null
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
