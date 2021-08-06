@@ -20,7 +20,7 @@ import com.bluebillywig.bbnativeshared.enums.ApiMethod
  */
 class PlayerDialogFragment(private var jsonUrl: String) : DialogFragment(), BBNativePlayerViewDelegate {
 	private lateinit var player: BBNativePlayerView
-	private lateinit var playerLayout: LinearLayout
+	private lateinit var playerContainer: LinearLayout
 	private lateinit var dialogView: View
 
 	private var seekOffset = 0.0;
@@ -57,9 +57,9 @@ class PlayerDialogFragment(private var jsonUrl: String) : DialogFragment(), BBNa
 		// If we can get the playout background color, we can override it here
 		dialogView.setBackgroundColor(Color.BLACK)
 
-		playerLayout = dialogView.findViewById(R.id.playerLayout)
+		playerContainer = dialogView.findViewById(R.id.playerContainerView)
 
-		playerLayout.addView(player)
+		playerContainer.addView(player)
 
 		return dialogView
 	}
@@ -94,7 +94,7 @@ class PlayerDialogFragment(private var jsonUrl: String) : DialogFragment(), BBNa
 			val dialogHeight = width / darWidth * darHeight
 			Logger.d("PlayerDialogFragment", "Dialog calculated height: $dialogHeight")
 
-			val params = playerLayout.layoutParams
+			val params = playerContainer.layoutParams
 			params.height = dialogHeight
 
 		} else if (width > height && darHeight > darWidth) {
@@ -102,11 +102,11 @@ class PlayerDialogFragment(private var jsonUrl: String) : DialogFragment(), BBNa
 			val dialogWidth = height / darHeight * darWidth
 			Logger.d("PlayerDialogFragment", "Dialog calculated width: $dialogWidth")
 
-			val params = playerLayout.layoutParams
+			val params = playerContainer.layoutParams
 			params.width = dialogWidth
 		}
 
-		playerLayout.visibility = View.VISIBLE
+		playerContainer.visibility = View.VISIBLE
 	}
 
 	override fun didTriggerSeeked(seekOffset: Double?) {
@@ -117,8 +117,12 @@ class PlayerDialogFragment(private var jsonUrl: String) : DialogFragment(), BBNa
 	override fun onDestroyView() {
 		Logger.d("PlayerDialogFragment", "onDestroyView")
 		player.callApiMethod(ApiMethod.pause, null)
-		player.destroy()
-		playerLayout.removeAllViews()
+		playerContainer.removeAllViews()
 		super.onDestroyView()
+	}
+
+	override fun onDestroy() {
+		player.destroy()
+		super.onDestroy()
 	}
 }

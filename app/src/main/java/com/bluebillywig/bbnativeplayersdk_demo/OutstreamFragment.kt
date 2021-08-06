@@ -10,6 +10,7 @@ import androidx.core.view.doOnLayout
 import androidx.fragment.app.DialogFragment
 import com.bluebillywig.bbnativeplayersdk.BBNativePlayer
 import com.bluebillywig.bbnativeplayersdk.BBNativePlayerView
+import com.bluebillywig.bbnativeshared.enums.ApiMethod
 
 private lateinit var player: BBNativePlayerView
 private lateinit var playerContainer: LinearLayout
@@ -38,6 +39,17 @@ class OutstreamFragment : Fragment() {
 
 		// todo ?    set player size to be width and height 9/16 of width
 		return outstreamView
+	}
+
+	override fun onDestroyView() {
+		player.callApiMethod(ApiMethod.pause, null)
+		playerContainer.removeAllViews()
+		super.onDestroyView()
+	}
+
+	override fun onDestroy() {
+		player.destroy()
+		super.onDestroy()
 	}
 
 	companion object {
