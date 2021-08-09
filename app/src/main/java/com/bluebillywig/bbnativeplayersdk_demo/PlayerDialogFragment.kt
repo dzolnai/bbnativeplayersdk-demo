@@ -18,7 +18,7 @@ import com.bluebillywig.bbnativeshared.enums.ApiMethod
  * A [DialogFragment] fullscreen subclass.
  * Use the [PlayerDialogFragment.show] method to show a fullscreen player in an overlay.
  */
-class PlayerDialogFragment(private var jsonUrl: String) : DialogFragment(), BBNativePlayerViewDelegate {
+class PlayerDialogFragment(private var jsonUrl: String, private var autoPlay: Boolean = true) : DialogFragment(), BBNativePlayerViewDelegate {
 	private lateinit var player: BBNativePlayerView
 	private lateinit var playerContainer: LinearLayout
 	private lateinit var dialogView: View
@@ -60,6 +60,10 @@ class PlayerDialogFragment(private var jsonUrl: String) : DialogFragment(), BBNa
 		playerContainer = dialogView.findViewById(R.id.playerContainerView)
 
 		playerContainer.addView(player)
+
+		if (autoPlay) {
+			player.callApiMethod(ApiMethod.play, null)
+		}
 
 		return dialogView
 	}

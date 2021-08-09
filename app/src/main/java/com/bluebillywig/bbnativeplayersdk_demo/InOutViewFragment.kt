@@ -10,12 +10,15 @@ import com.bluebillywig.bbnativeplayersdk.BBNativePlayer
 import com.bluebillywig.bbnativeplayersdk.BBNativePlayerView
 import com.bluebillywig.bbnativeshared.enums.ApiMethod
 
-private lateinit var player: BBNativePlayerView
-private lateinit var playerContainer: LinearLayout
-private lateinit var inOutViewView: View
-
-
+/**
+ * An inview/outview [Fragment] subclass.
+ * When the player is in view play the video
+ * but when not in view stop playing the video
+ */
 class InOutViewFragment : Fragment() {
+	private lateinit var player: BBNativePlayerView
+	private lateinit var playerContainer: LinearLayout
+	private lateinit var inOutViewView: View
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -36,7 +39,6 @@ class InOutViewFragment : Fragment() {
 		playerContainer = inOutViewView.findViewById(R.id.playerContainerView)
 		playerContainer.addView(player)
 
-		// todo ?    set player size to be width and height 9/16 of width
 		return inOutViewView
 	}
 

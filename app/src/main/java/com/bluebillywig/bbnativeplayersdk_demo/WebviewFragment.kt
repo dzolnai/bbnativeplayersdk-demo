@@ -12,9 +12,9 @@ import androidx.fragment.app.Fragment
 import com.bluebillywig.bbnativeshared.Logger
 
 /**
- * A simple [Fragment] subclass.
- * Use the [WebViewFragment.newInstance] factory method to
- * create an instance of this fragment.
+ * A webview [Fragment] subclass.
+ * Display the contents of a url and on click of the button
+ * show a modal with the video
  */
 class WebViewFragment : Fragment() {
 	private lateinit var webView: WebView
