@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.bluebillywig.bbnativeplayersdk.BBNativePlayer
 import com.bluebillywig.bbnativeplayersdk.BBNativePlayerView
+import com.bluebillywig.bbnativeshared.enums.ApiMethod
 
 /**
  * An inview/outview [Fragment] subclass.
@@ -39,5 +40,16 @@ class InOutViewFragment : Fragment() {
 		playerContainer.addView(player)
 
 		return inOutViewView
+	}
+
+	override fun onDestroyView() {
+		player.callApiMethod(ApiMethod.pause, null)
+		playerContainer.removeAllViews()
+		super.onDestroyView()
+	}
+
+	override fun onDestroy() {
+		player.destroy()
+		super.onDestroy()
 	}
 }

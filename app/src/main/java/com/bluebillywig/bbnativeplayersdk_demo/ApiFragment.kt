@@ -40,6 +40,7 @@ class ApiFragment : Fragment(), BBNativePlayerViewDelegate {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		player = BBNativePlayer.createPlayerView(requireActivity(), "https://demo.bbvms.com/p/default/c/4256615.json")
+		player.delegate = this
 	}
 
 	override fun onCreateView(
@@ -48,7 +49,6 @@ class ApiFragment : Fragment(), BBNativePlayerViewDelegate {
 		savedInstanceState: Bundle?
 	): View {
 		super.onCreateView(inflater, container, savedInstanceState)
-		player.delegate = this
 		// Inflate and set the layout
 		// Pass null as the parent view because its going in the dialog layout
 		apiView = inflater.inflate(R.layout.fragment_api, null)
@@ -83,6 +83,17 @@ class ApiFragment : Fragment(), BBNativePlayerViewDelegate {
 		outputText?.setPadding(10, 10, 10, 10);
 
 		return apiView
+	}
+
+	override fun onDestroyView() {
+		player.callApiMethod(ApiMethod.pause, null)
+		playerContainer.removeAllViews()
+		super.onDestroyView()
+	}
+
+	override fun onDestroy() {
+		player.destroy()
+		super.onDestroy()
 	}
 
 	private fun addToEventDebugTextfield(msg: String ) {

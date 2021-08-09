@@ -11,6 +11,7 @@ import com.bluebillywig.bbnativeplayersdk.BBNativePlayerView
 import com.bluebillywig.bbnativeplayersdk.BBNativePlayerViewDelegate
 import com.bluebillywig.bbnativeshared.Logger
 import com.bluebillywig.bbnativeshared.enums.ApiProperty
+import com.bluebillywig.bbnativeshared.enums.ApiMethod
 
 /**
  * An outstream [Fragment] subclass.
@@ -53,6 +54,17 @@ class OutstreamFragment : Fragment(), BBNativePlayerViewDelegate {
 		Logger.d("OutstreamFragment", "setup completed for url: $url")
 		val playout = player.getApiProperty(ApiProperty.playoutData)
 		Logger.d("OutstreamFragment", "got playout: $playout")
+  }
+
+	override fun onDestroyView() {
+		player.callApiMethod(ApiMethod.pause, null)
+		playerContainer.removeAllViews()
+		super.onDestroyView()
+	}
+
+	override fun onDestroy() {
+		player.destroy()
+		super.onDestroy()
 	}
 
 	companion object {
