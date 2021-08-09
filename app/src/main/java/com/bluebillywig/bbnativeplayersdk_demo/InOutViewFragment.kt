@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.bluebillywig.bbnativeplayersdk.BBNativePlayer
 import com.bluebillywig.bbnativeplayersdk.BBNativePlayerView
+import com.bluebillywig.bbnativeshared.enums.ApiMethod
 
 private lateinit var player: BBNativePlayerView
 private lateinit var playerContainer: LinearLayout
@@ -37,5 +38,16 @@ class InOutViewFragment : Fragment() {
 
 		// todo ?    set player size to be width and height 9/16 of width
 		return inOutViewView
+	}
+
+	override fun onDestroyView() {
+		player.callApiMethod(ApiMethod.pause, null)
+		playerContainer.removeAllViews()
+		super.onDestroyView()
+	}
+
+	override fun onDestroy() {
+		player.destroy()
+		super.onDestroy()
 	}
 }
