@@ -1,6 +1,8 @@
 package com.bluebillywig.bbnativeplayersdk_demo
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.provider.Settings.*
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,24 +14,42 @@ import com.bluebillywig.bbnativeplayersdk.BBNativePlayerViewDelegate
 import com.bluebillywig.bbnativeshared.Logger
 import com.bluebillywig.bbnativeshared.enums.ApiProperty
 import com.bluebillywig.bbnativeshared.enums.ApiMethod
+import com.google.android.gms.ads.identifier.AdvertisingIdClient
+import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
 
 /**
  * An outstream [Fragment] subclass.
  * Shows an outstream ad between TextViews
  */
-class OutstreamFragment : Fragment(), BBNativePlayerViewDelegate {
+class OutstreamFragment : Fragment(), BBNativePlayerViewDelegate, CoroutineScope {
+	private var parentJob = Job()
+	override val coroutineContext: CoroutineContext
+		get() = Dispatchers.IO + parentJob
+
 	private lateinit var player: BBNativePlayerView
 	private lateinit var playerContainer: LinearLayout
 	private lateinit var outstreamView: View
 
+	@SuppressLint("HardwareIds")
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 
-		// Create player view and display the ad using an ad embed url
-		player = BBNativePlayer.createPlayerView(requireActivity(), "https://demo.bbvms.com/a/native_sdk_outstream.json")
-		// To be able to listen to BBNativePlayer events, set the delegate to this
-		// Overridden function didSetupWithJsonUrl is an example of a delegate callback
-		player.delegate = this
+		this.launch {
+			// The fallback (behind the ?: statement) is not recommended, but again, it's a fallback
+			// suppressing recommendation message by using @SuppressLint("HardwareIds")
+			val adId = getAdId(this).await() ?: Secure.getString(requireContext().getContentResolver(), Secure.ANDROID_ID)
+			Logger.d("OutstreamFragment", "Got adId: $adId")
+
+			this.launch(Dispatchers.Main) {
+				val options = HashMap<String, Any?>()
+				options.put("adsystem_rdid", adId)
+				options.put("adsystem_is_lat", false)
+
+				// Create player view and display the ad using an ad embed url
+				player = BBNativePlayer.createPlayerView(requireActivity(),"https://demo.bbvms.com/a/native_sdk_outstream.json", options)
+			}
+		}
 	}
 
 	override fun onCreateView(
@@ -44,7 +64,20 @@ class OutstreamFragment : Fragment(), BBNativePlayerViewDelegate {
 		outstreamView = inflater.inflate(R.layout.fragment_outstream, null)
 
 		playerContainer = outstreamView.findViewById(R.id.playerContainerView)
-		playerContainer.addView(player)
+
+		val outstreamFragment = this
+
+		this.launch {
+			waitForPlayer(this).await()
+
+			this.launch(Dispatchers.Main) {
+				// To be able to listen to BBNativePlayer events, set the delegate to this
+				// Overridden function didSetupWithJsonUrl is an example of a delegate callback
+				player.delegate = outstreamFragment
+
+				playerContainer.addView(player)
+			}
+		}
 
 		return outstreamView
 	}
@@ -65,6 +98,17 @@ class OutstreamFragment : Fragment(), BBNativePlayerViewDelegate {
 	override fun onDestroy() {
 		player.destroy()
 		super.onDestroy()
+	}
+
+	private fun getAdId(scope: CoroutineScope): Deferred<String?> = scope.async(Dispatchers.IO) {
+		val adInfo = AdvertisingIdClient.getAdvertisingIdInfo(requireContext())
+		adInfo?.id
+	}
+
+	private fun waitForPlayer(scope: CoroutineScope): Deferred<Unit> = scope.async(Dispatchers.IO) {
+		while (!::player.isInitialized && scope.isActive) {
+			Thread.sleep(250)
+		}
 	}
 
 	companion object {
