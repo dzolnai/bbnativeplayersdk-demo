@@ -82,8 +82,8 @@ class OutstreamFragment : Fragment(), BBNativePlayerViewDelegate, CoroutineScope
 		return outstreamView
 	}
 
-	override fun didSetupWithJsonUrl(url: String?) {
-		super.didSetupWithJsonUrl(url)
+	override fun didSetupWithJsonUrl(playerView: BBNativePlayerView, url: String?) {
+		super.didSetupWithJsonUrl(playerView, url)
 		Logger.d("OutstreamFragment", "setup completed for url: $url")
 		val playout = player.getApiProperty(ApiProperty.playoutData)
 		Logger.d("OutstreamFragment", "got playout: $playout")

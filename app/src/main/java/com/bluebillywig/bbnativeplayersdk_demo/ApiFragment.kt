@@ -210,55 +210,55 @@ class ApiFragment : Fragment(), BBNativePlayerViewDelegate {
 	}
 
 	// PLAYER DELEGATE METHODS
-	override fun didSetupWithJsonUrl(url: String?) {
+	override fun didSetupWithJsonUrl(playerView: BBNativePlayerView, url: String?) {
 		addToEventDebugTextfield("Player API Delegate: didSetupWithJson")
 	}
 
-	override fun didTriggerMediaClipLoaded(clipData: MediaClip?) {
+	override fun didTriggerMediaClipLoaded(playerView: BBNativePlayerView, clipData: MediaClip?) {
 		addToEventDebugTextfield("Player API Delegate: didTriggerMediaClipLoaded")
 	}
 
-	override fun didTriggerMediaClipFailed() {
+	override fun didTriggerMediaClipFailed(playerView: BBNativePlayerView, ) {
 		addToEventDebugTextfield("Player API Delegate: didTriggerMediaClipFailed")
 	}
 
-	override fun didTriggerViewStarted() {
+	override fun didTriggerViewStarted(playerView: BBNativePlayerView, ) {
 		addToEventDebugTextfield("Player API Delegate: didTriggerViewStarted")
 	}
 
-	override fun didTriggerViewFinished() {
+	override fun didTriggerViewFinished(playerView: BBNativePlayerView, ) {
 		addToEventDebugTextfield("Player API Delegate: didTriggerViewFinished")
 	}
 
-	override fun didTriggerProjectLoaded(projectData: Project?) {
+	override fun didTriggerProjectLoaded(playerView: BBNativePlayerView, projectData: Project?) {
 		addToEventDebugTextfield("Player API Delegate: didTriggerProjectLoaded")
 	}
 
-	override fun didTriggerCanPlay() {
+	override fun didTriggerCanPlay(playerView: BBNativePlayerView, ) {
 		addToEventDebugTextfield("Player API Delegate: didTriggerCanPlay")
 	}
 
-	override fun didTriggerDurationChange(duration: Double?) {
+	override fun didTriggerDurationChange(playerView: BBNativePlayerView, duration: Double?) {
 		addToEventDebugTextfield("Player API Delegate: didTriggerDurationChange : ${duration}")
 	}
 
-	override fun didTriggerPlay() {
+	override fun didTriggerPlay(playerView: BBNativePlayerView, ) {
 		addToEventDebugTextfield("Player API Delegate: didTriggerPlay")
 	}
 
-	override fun didTriggerPause() {
+	override fun didTriggerPause(playerView: BBNativePlayerView, ) {
 		addToEventDebugTextfield("Player API Delegate: didTriggerPause")
 	}
 
-	override fun didTriggerPlaying() {
+	override fun didTriggerPlaying(playerView: BBNativePlayerView, ) {
 		addToEventDebugTextfield("Player API Delegate: didTriggerPlaying")
 	}
 
-	override fun didTriggerSeeking() {
+	override fun didTriggerSeeking(playerView: BBNativePlayerView, ) {
 		addToEventDebugTextfield("Player API Delegate: didTriggerSeeking")
 	}
 
-	override fun didTriggerSeeked(seekOffset: Double?) {
+	override fun didTriggerSeeked(playerView: BBNativePlayerView, seekOffset: Double?) {
 		addToEventDebugTextfield("Player API Delegate: didTriggerSeeked : ${seekOffset}")
 	}
 
@@ -267,27 +267,27 @@ class ApiFragment : Fragment(), BBNativePlayerViewDelegate {
 //		addToEventDebug("Player API Delegate: didTriggerStall")
 //	}
 
-	override fun didTriggerAutoPause(why: String?) {
+	override fun didTriggerAutoPause(playerView: BBNativePlayerView, why: String?) {
 		addToEventDebugTextfield("Player API Delegate: didTriggerAutoPause")
 	}
 
-	override fun didTriggerAutoPausePlay(why: String?) {
+	override fun didTriggerAutoPausePlay(playerView: BBNativePlayerView, why: String?) {
 		addToEventDebugTextfield("Player API Delegate: didTriggerAutoPausePlay")
 	}
 
-	override fun didFailWithError(error: String?) {
+	override fun didFailWithError(playerView: BBNativePlayerView, error: String?) {
 		addToEventDebugTextfield("Player API Delegate: didFailWithError")
 	}
 
-	override fun didTriggerAdError(error: String?) {
+	override fun didTriggerAdError(playerView: BBNativePlayerView, error: String?) {
 		addToEventDebugTextfield("Player API Delegate: didTriggerAdError : ${error}")
 	}
 
-	override fun didTriggerPhaseChange(phase: Phase?) {
+	override fun didTriggerPhaseChange(playerView: BBNativePlayerView, phase: Phase?) {
 		addToEventDebugTextfield("Player API Delegate: didTriggerPhaseChange : ${phase}")
 	}
 
-	override fun didTriggerStateChange(state: State?) {
+	override fun didTriggerStateChange(playerView: BBNativePlayerView, state: State?) {
 		addToEventDebugTextfield("Player API Delegate: didTriggerStateChange :${state}")
 	}
 }

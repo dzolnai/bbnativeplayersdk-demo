@@ -76,8 +76,8 @@ class PlayerDialogFragment(private var jsonUrl: String, private var autoPlay: Bo
 		outState.putDouble("offset", seekOffset)
 	}
 
-	override fun didTriggerMediaClipLoaded(clipData: MediaClip?) {
-		super.didTriggerMediaClipLoaded(clipData)
+	override fun didTriggerMediaClipLoaded(playerView: BBNativePlayerView, clipData: MediaClip?) {
+		super.didTriggerMediaClipLoaded(playerView, clipData)
 		var dar = clipData?.dar ?: "16:9"
 		val regex = Regex("\\d+:\\d+")
 		if (!dar.contains(regex)) {
@@ -113,8 +113,8 @@ class PlayerDialogFragment(private var jsonUrl: String, private var autoPlay: Bo
 		playerContainer.visibility = View.VISIBLE
 	}
 
-	override fun didTriggerSeeked(seekOffset: Double?) {
-		super.didTriggerSeeked(seekOffset)
+	override fun didTriggerSeeked(playerView: BBNativePlayerView, seekOffset: Double?) {
+		super.didTriggerSeeked(playerView, seekOffset)
 		this.seekOffset = seekOffset ?: 0.0
 	}
 
