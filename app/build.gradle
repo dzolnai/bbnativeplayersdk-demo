@@ -53,8 +53,8 @@ dependencies {
     // implementation "com.bluebillywig.bbnativeplayersdk:bbnativeplayersdk:0.0.11.7-SNAPSHOT"
     // implementation "com.bluebillywig.bbnativeplayersdk:bbnativeshared:0.0.11.7-SNAPSHOT"
     // implementation "com.bluebillywig.bbnativeplayersdk:bbnativeplayersdk-core:0.0.11.7-SNAPSHOT"
-    // implementation "com.bluebillywig.bbnativeplayersdk:bbnativeplayersdk:7.69-0-SNAPSHOT" // acceptance
-    implementation "com.bluebillywig.bbnativeplayersdk:bbnativeplayersdk:7.69.0" // production
+    // implementation "com.bluebillywig.bbnativeplayersdk:bbnativeplayersdk:7.71-0-SNAPSHOT" // acceptance
+    implementation "com.bluebillywig.bbnativeplayersdk:bbnativeplayersdk:7.71.0" // production
     implementation 'com.android.support.constraint:constraint-layout:2.0.4'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
