@@ -12,6 +12,7 @@ import android.widget.NumberPicker.OnScrollListener.SCROLL_STATE_IDLE
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.bluebillywig.bbnativeplayersdk.BBNativePlayer
+import com.bluebillywig.bbnativeplayersdk.BBNativePlayerAPI
 import com.bluebillywig.bbnativeplayersdk.BBNativePlayerView
 import com.bluebillywig.bbnativeplayersdk.BBNativePlayerViewDelegate
 import com.bluebillywig.bbnativeshared.enums.ApiMethod
@@ -30,7 +31,7 @@ private var pickerVals = arrayOf("Select API method", "Play", "Pause", "Seek", "
  * the player (BBNativePlayerView) respond to those methods
  */
 class ApiFragment : Fragment(), BBNativePlayerViewDelegate {
-	private lateinit var player: BBNativePlayerView
+	private lateinit var playerView: BBNativePlayerView
 	private lateinit var playerContainer: LinearLayout
 	private lateinit var apiView: View
 	private lateinit var apiMethodPicker: NumberPicker
@@ -39,8 +40,8 @@ class ApiFragment : Fragment(), BBNativePlayerViewDelegate {
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		player = BBNativePlayer.createPlayerView(requireActivity(), "https://demo.bbvms.com/p/default/c/4256615.json")
-		player.delegate = this
+		playerView = BBNativePlayer.createPlayerView(requireActivity(), "https://demo.bbvms.com/p/default/c/4256615.json")
+		playerView.delegate = this
 	}
 
 	override fun onCreateView(
@@ -54,7 +55,7 @@ class ApiFragment : Fragment(), BBNativePlayerViewDelegate {
 		apiView = inflater.inflate(R.layout.fragment_api, null)
 
 		playerContainer = apiView.findViewById(R.id.playerContainerView)
-		playerContainer.addView(player)
+		playerContainer.addView(playerView)
 
 
 		apiMethodPicker = apiView.findViewById(R.id.apiMethodPicker)
@@ -86,13 +87,13 @@ class ApiFragment : Fragment(), BBNativePlayerViewDelegate {
 	}
 
 	override fun onDestroyView() {
-		player.callApiMethod(ApiMethod.pause, null)
+		playerView.player?.pause()
 		playerContainer.removeAllViews()
 		super.onDestroyView()
 	}
 
 	override fun onDestroy() {
-		player.destroy()
+		playerView.destroy()
 		super.onDestroy()
 	}
 
@@ -109,28 +110,25 @@ class ApiFragment : Fragment(), BBNativePlayerViewDelegate {
 	private fun handleApiMethodSelection( value: String ) {
 		when (value) {
 			"Play" -> {
-				player?.callApiMethod(ApiMethod.play, null)
+				playerView.player?.play()
 			}
 			"Pause" -> {
-				player?.callApiMethod(ApiMethod.pause, null)
+				playerView.player?.pause()
 			}
 			"Seek" -> {
-				player?.callApiMethod(ApiMethod.seek, mapOf("offsetInSeconds" to 10))
+				playerView.player?.seek(10.0)
 			}
 			"Mute" -> {
-				player?.setApiProperty(ApiProperty.muted, true)
+				playerView.player?.muted = true
 			}
 			"Unmute" -> {
-				player?.setApiProperty(ApiProperty.muted, false)
+				playerView.player?.muted = false
 			}
 			"Load" -> {
-				player?.callApiMethod(
-					ApiMethod.load,
-					mapOf("clipId" to "4256575", "autoPlay" to true)
-				)
+				playerView.player?.loadWithClipId("4256575", null, true)
 			}
 			"getClipData" -> {
-				var mediaClip: MediaClip = player?.getApiProperty(ApiProperty.clipData) as MediaClip
+				val mediaClip: MediaClip? = playerView.player?.clipData
 				if (mediaClip != null) {
 					showValue("Clip id", mediaClip.id!!)
 				} else {
@@ -138,7 +136,7 @@ class ApiFragment : Fragment(), BBNativePlayerViewDelegate {
 				}
 			}
 			"getDuration" -> {
-				var duration: Number = player?.getApiProperty(ApiProperty.duration) as Number
+				val duration: Double? = playerView.player?.duration
 				if (duration != null) {
 					showValue("Duration", "${duration}")
 				} else {
@@ -146,7 +144,7 @@ class ApiFragment : Fragment(), BBNativePlayerViewDelegate {
 				}
 			}
 			"getMuted" -> {
-				var muted: Boolean = player?.getApiProperty(ApiProperty.muted) as Boolean
+				val muted: Boolean? = playerView.player?.muted
 				if (muted != null) {
 					showValue("Muted?", "${muted}")
 				} else {
@@ -154,7 +152,7 @@ class ApiFragment : Fragment(), BBNativePlayerViewDelegate {
 				}
 			}
 			"getPhase" -> {
-				var phase: Phase = player?.getApiProperty(ApiProperty.phase) as Phase
+				val phase: Phase? = playerView.player?.phase
 				if (phase != null) {
 					showValue("Phase", "${phase}")
 				} else {
@@ -162,7 +160,7 @@ class ApiFragment : Fragment(), BBNativePlayerViewDelegate {
 				}
 			}
 			"getState" -> {
-				var state: State = player?.getApiProperty(ApiProperty.state) as State
+				val state: State? = playerView.player?.state
 				if (state != null) {
 					showValue("State", "${state}")
 				} else {
@@ -170,7 +168,7 @@ class ApiFragment : Fragment(), BBNativePlayerViewDelegate {
 				}
 			}
 			"getMode" -> {
-				var mode: String = player?.getApiProperty(ApiProperty.mode) as String
+				val mode: String? = playerView.player?.mode
 				if (mode != null) {
 					showValue("Mode", mode)
 				} else {
@@ -178,25 +176,24 @@ class ApiFragment : Fragment(), BBNativePlayerViewDelegate {
 				}
 			}
 			"getPlayoutData" -> {
-				if ( player?.getApiProperty(ApiProperty.playoutData) != null ) {
-					var playout: Playout = player?.getApiProperty(ApiProperty.playoutData) as Playout
+				val playout: Playout? = playerView.player?.playoutData
+				if (playout != null) {
 					showValue("Playout", "${playout.name}")
 				} else {
 					showValue("Data", "Not available atm")
 				}
 			}
 			"getProjectData" -> {
-				if (player?.getApiProperty(ApiProperty.projectData) != null) {
-					var project: Project = player?.getApiProperty(ApiProperty.projectData) as Project
+				val project: Project? = playerView.player?.projectData
+				if (project != null) {
 					showValue("Project", "${project.name}")
 				} else {
-
 					showValue("Data", "Not available atm")
 				}
 			}
 
 			"getVolume" -> {
-				var volume: Number = player?.getApiProperty(ApiProperty.volume) as Number
+				val volume: Double? = playerView.player?.volume
 				if (volume != null) {
 					showValue("Volume", "${volume}")
 				} else {

@@ -102,7 +102,7 @@ class OutstreamFragment : Fragment(), BBNativePlayerViewDelegate, CoroutineScope
 
 	private fun getAdId(scope: CoroutineScope): Deferred<String?> = scope.async(Dispatchers.IO) {
 		val adInfo = AdvertisingIdClient.getAdvertisingIdInfo(requireContext())
-		adInfo?.id
+		adInfo.id
 	}
 
 	private fun waitForPlayer(scope: CoroutineScope): Deferred<Unit> = scope.async(Dispatchers.IO) {
@@ -114,15 +114,13 @@ class OutstreamFragment : Fragment(), BBNativePlayerViewDelegate, CoroutineScope
 	companion object {
 		/**
 		 * Use this factory method to create a new instance of
-		 * this fragment using the provided parameters.
+		 * this fragment.
 		 *
-		 * @param param1 Parameter 1.
-		 * @param param2 Parameter 2.
 		 * @return A new instance of fragment OutstreamFragment.
 		 */
 		// TODO: Rename and change types and number of parameters
 		@JvmStatic
-		fun newInstance(param1: String, param2: String) =
+		fun newInstance() =
 			OutstreamFragment().apply {
 				arguments = Bundle().apply {
 

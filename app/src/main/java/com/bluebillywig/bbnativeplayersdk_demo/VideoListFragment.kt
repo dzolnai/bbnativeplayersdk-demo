@@ -60,7 +60,7 @@ class VideoListFragment : Fragment(), CoroutineScope {
 
 		var clipList: MediaClipList
 
-		var repoListJsonStr: String = ""
+		var repoListJsonStr: String
 
 		// Were using Dispatchers.IO here to get rid of the inappropriate blocking method call message
 		launch(Dispatchers.IO) {
