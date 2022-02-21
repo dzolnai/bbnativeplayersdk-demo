@@ -27,7 +27,7 @@ class OutstreamFragment : Fragment(), BBNativePlayerViewDelegate, CoroutineScope
 	override val coroutineContext: CoroutineContext
 		get() = Dispatchers.IO + parentJob
 
-	private lateinit var player: BBNativePlayerView
+	private lateinit var playerView: BBNativePlayerView
 	private lateinit var playerContainer: LinearLayout
 	private lateinit var outstreamView: View
 
@@ -45,9 +45,10 @@ class OutstreamFragment : Fragment(), BBNativePlayerViewDelegate, CoroutineScope
 				val options = HashMap<String, Any?>()
 				options.put("adsystem_rdid", adId)
 				options.put("adsystem_is_lat", false)
+				options.put("allowCollapseExpand", true)
 
 				// Create player view and display the ad using an ad embed url
-				player = BBNativePlayer.createPlayerView(requireActivity(),"https://demo.bbvms.com/a/native_sdk_outstream.json", options)
+				playerView = BBNativePlayer.createPlayerView(requireActivity(),"https://demo.bbvms.com/a/native_sdk_outstream.json", options)
 			}
 		}
 	}
@@ -73,9 +74,9 @@ class OutstreamFragment : Fragment(), BBNativePlayerViewDelegate, CoroutineScope
 			this.launch(Dispatchers.Main) {
 				// To be able to listen to BBNativePlayer events, set the delegate to this
 				// Overridden function didSetupWithJsonUrl is an example of a delegate callback
-				player.delegate = outstreamFragment
+				playerView.delegate = outstreamFragment
 
-				playerContainer.addView(player)
+				playerContainer.addView(playerView)
 			}
 		}
 
@@ -85,18 +86,18 @@ class OutstreamFragment : Fragment(), BBNativePlayerViewDelegate, CoroutineScope
 	override fun didSetupWithJsonUrl(playerView: BBNativePlayerView, url: String?) {
 		super.didSetupWithJsonUrl(playerView, url)
 		Logger.d("OutstreamFragment", "setup completed for url: $url")
-		val playout = player.getApiProperty(ApiProperty.playoutData)
+		val playout = playerView.getApiProperty(ApiProperty.playoutData)
 		Logger.d("OutstreamFragment", "got playout: $playout")
   }
 
 	override fun onDestroyView() {
-		player.callApiMethod(ApiMethod.pause, null)
+		playerView.callApiMethod(ApiMethod.pause, null)
 		playerContainer.removeAllViews()
 		super.onDestroyView()
 	}
 
 	override fun onDestroy() {
-		player.destroy()
+		playerView.destroy()
 		super.onDestroy()
 	}
 
@@ -106,7 +107,7 @@ class OutstreamFragment : Fragment(), BBNativePlayerViewDelegate, CoroutineScope
 	}
 
 	private fun waitForPlayer(scope: CoroutineScope): Deferred<Unit> = scope.async(Dispatchers.IO) {
-		while (!::player.isInitialized && scope.isActive) {
+		while (!::playerView.isInitialized && scope.isActive) {
 			Thread.sleep(250)
 		}
 	}
