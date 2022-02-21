@@ -16,13 +16,13 @@ import com.bluebillywig.bbnativeshared.enums.ApiMethod
  * but when not in view stop playing the video
  */
 class InOutViewFragment : Fragment() {
-	private lateinit var player: BBNativePlayerView
+	private lateinit var playerView: BBNativePlayerView
 	private lateinit var playerContainer: LinearLayout
 	private lateinit var inOutViewView: View
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		player = BBNativePlayer.createPlayerView(requireActivity(), "https://demo.bbvms.com/p/native_sdk_inoutview/c/4256635.json")
+		playerView = BBNativePlayer.createPlayerView(requireActivity(), "https://demo.bbvms.com/p/native_sdk_inoutview/c/4256635.json", mapOf("noChromeCast" to false))
 	}
 
 	override fun onCreateView(
@@ -37,19 +37,30 @@ class InOutViewFragment : Fragment() {
 		inOutViewView = inflater.inflate(R.layout.fragment_in_out_view, null)
 
 		playerContainer = inOutViewView.findViewById(R.id.playerContainerView)
-		playerContainer.addView(player)
+		playerContainer.addView(playerView)
 
 		return inOutViewView
 	}
 
 	override fun onDestroyView() {
-		player.callApiMethod(ApiMethod.pause, null)
+		playerView.callApiMethod(ApiMethod.pause, null)
 		playerContainer.removeAllViews()
 		super.onDestroyView()
 	}
 
 	override fun onDestroy() {
-		player.destroy()
+		playerView.destroy()
 		super.onDestroy()
 	}
+
+	override fun onResume() {
+		super.onResume()
+		playerView.resumeCastSession()
+	}
+
+	override fun onPause() {
+		playerView.pauseCastSession()
+		super.onPause()
+	}
+
 }

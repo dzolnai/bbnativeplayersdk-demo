@@ -97,6 +97,16 @@ class ApiFragment : Fragment(), BBNativePlayerViewDelegate {
 		super.onDestroy()
 	}
 
+	override fun onResume() {
+		super.onResume()
+		playerView.resumeCastSession()
+	}
+
+	override fun onPause() {
+		playerView.pauseCastSession()
+		super.onPause()
+	}
+
 	private fun addToEventDebugTextfield(msg: String ) {
 		delegateText?.append(msg)
 		delegateText?.append("\n")
