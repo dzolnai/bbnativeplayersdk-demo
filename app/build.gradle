@@ -5,13 +5,13 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.bluebillywig.bbnativeplayersdk_demo"
         minSdkVersion 28
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode 1
         versionName "1.0"
 
@@ -37,6 +37,7 @@ android {
 
     packagingOptions {
         exclude 'META-INF/lib_release.kotlin_module'
+        exclude 'META-INF/kotlin-stdlib.kotlin_module'
         exclude 'META-INF/annotation-experimental_release.kotlin_module'
     }
     buildFeatures {
@@ -50,10 +51,10 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
-//     implementation "com.bluebillywig.bbnativeplayersdk:bbnativeplayersdk:7.85-0-SNAPSHOT" // acceptance
-     implementation "com.bluebillywig.bbnativeplayersdk:bbnativeplayersdk:7.85.0" // production
-//    implementation "com.bluebillywig.bbnativeplayersdk:bbnativeshared:7.85.0"
-//    implementation "com.bluebillywig.bbnativeplayersdk:bbnativeplayersdk-core:7.85.0"
+     implementation "com.bluebillywig.bbnativeplayersdk:bbnativeplayersdk:7.87-0-SNAPSHOT" // acceptance
+//     implementation "com.bluebillywig.bbnativeplayersdk:bbnativeplayersdk:7.87.0" // production
+//    implementation "com.bluebillywig.bbnativeplayersdk:bbnativeshared:7.87.0"
+//    implementation "com.bluebillywig.bbnativeplayersdk:bbnativeplayersdk-core:7.87.0"
     implementation 'com.android.support.constraint:constraint-layout:2.0.4'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
