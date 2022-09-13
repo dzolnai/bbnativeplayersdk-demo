@@ -1,13 +1,16 @@
 package com.bluebillywig.bbnativeplayersdk_demo
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.fragment.app.FragmentActivity
 import com.bluebillywig.bbnativeplayersdk.BBNativePlayer
 import com.bluebillywig.bbnativeplayersdk.BBNativePlayerView
+import com.bluebillywig.bbnativeplayersdk.BBNativePlayerViewDelegate
 import com.bluebillywig.bbnativeshared.enums.ApiMethod
 
 /**
@@ -15,14 +18,20 @@ import com.bluebillywig.bbnativeshared.enums.ApiMethod
  * When the player is in view play the video
  * but when not in view stop playing the video
  */
-class InOutViewFragment : Fragment() {
+class InOutViewFragment : Fragment(), BBNativePlayerViewDelegate {
 	private lateinit var playerView: BBNativePlayerView
 	private lateinit var playerContainer: LinearLayout
 	private lateinit var inOutViewView: View
+	private lateinit var fragmentActivity: FragmentActivity
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		playerView = BBNativePlayer.createPlayerView(requireActivity(), "https://demo.bbvms.com/p/native_sdk_inoutview/c/4256635.json", mapOf("noChromeCast" to false))
+		fragmentActivity = requireActivity()
+		playerView = BBNativePlayer.createPlayerView(fragmentActivity, "https://demo.bbvms.com/p/native_sdk_inoutview/c/4256635.json", mapOf("noChromeCast" to false))
+
+		playerView.delegate = this
+
+//		fragmentActivity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
 	}
 
 	override fun onCreateView(
@@ -63,4 +72,8 @@ class InOutViewFragment : Fragment() {
 		super.onPause()
 	}
 
+//	override fun didTriggerRetractFullscreen(playerView: BBNativePlayerView) {
+//		println("*** didTriggerRetractFullscreen")
+//		fragmentActivity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+//	}
 }
