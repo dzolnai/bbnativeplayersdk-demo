@@ -35,6 +35,13 @@ class OutstreamFragment : Fragment(), BBNativePlayerViewDelegate, CoroutineScope
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 
+		var jsonUrl: String? = "https://demo.bbvms.com/a/native_sdk_outstream.json"
+		val arguments_ = arguments
+		if (arguments_ != null) {
+			jsonUrl = arguments_.getString("jsonUrl")
+		}
+		Logger.d("OutstreamFragment", "json url: $jsonUrl")
+
 		this.launch {
 			// The fallback (behind the ?: statement) is not recommended, but again, it's a fallback
 			// suppressing recommendation message by using @SuppressLint("HardwareIds")
@@ -48,7 +55,7 @@ class OutstreamFragment : Fragment(), BBNativePlayerViewDelegate, CoroutineScope
 				options.put("allowCollapseExpand", true)
 
 				// Create player view and display the ad using an ad embed url
-				playerView = BBNativePlayer.createPlayerView(requireActivity(),"https://demo.bbvms.com/a/native_sdk_outstream.json", options)
+				playerView = BBNativePlayer.createPlayerView(requireActivity(), jsonUrl, options)
 			}
 		}
 	}
