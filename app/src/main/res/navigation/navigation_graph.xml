@@ -49,7 +49,11 @@
         android:id="@+id/outstreamFragment"
         android:name="com.bluebillywig.bbnativeplayersdk_demo.OutstreamFragment"
         android:label="fragment_outstream"
-        tools:layout="@layout/fragment_outstream" />
+        tools:layout="@layout/fragment_outstream">
+        <argument
+            android:name="jsonUrl"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/prePostRollFragment"
         android:name="com.bluebillywig.bbnativeplayersdk_demo.PrePostRollFragment"

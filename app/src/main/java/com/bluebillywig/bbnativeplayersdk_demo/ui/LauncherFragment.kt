@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleObserver
 import androidx.navigation.Navigation
@@ -21,8 +23,13 @@ class LauncherFragment : Fragment(), LifecycleObserver {
 		addOnClickListener(view, R.id.apiButton, R.id.action_launcherFragment_to_apiFragment)
 		addOnClickListener(view, R.id.videoListButton, R.id.action_launcherFragment_to_videoListFragment)
 		addOnClickListener(view, R.id.inOutViewButton, R.id.action_launcherFragment_to_inOutViewFragment)
-		addOnClickListener(view, R.id.outstreamButton, R.id.action_launcherFragment_to_outstreamFragment)
 		addOnClickListener(view, R.id.webviewButton, R.id.action_launcherFragment_to_webviewFragment)
+
+		view.findViewById<Button>(R.id.outstreamButton).setOnClickListener {
+			val jsonUrl = view.findViewById<EditText>(R.id.outstreamTextField)?.text.toString()
+			val bundle = bundleOf("jsonUrl" to jsonUrl)
+			Navigation.findNavController(view).navigate(R.id.action_launcherFragment_to_outstreamFragment, bundle)
+		}
 		view.findViewById<Button>(R.id.prePostRollButton).setOnClickListener {
 			PlayerDialogFragment("https://demo.bbvms.com/p/native_sdk_preroll/c/4256600.json").show(requireActivity().supportFragmentManager,"player")
 		}
