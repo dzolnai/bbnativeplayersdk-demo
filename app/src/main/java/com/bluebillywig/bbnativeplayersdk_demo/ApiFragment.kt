@@ -19,7 +19,9 @@ import com.bluebillywig.bbnativeshared.enums.ApiMethod
 import com.bluebillywig.bbnativeshared.enums.ApiProperty
 import com.bluebillywig.bbnativeshared.enums.Phase
 import com.bluebillywig.bbnativeshared.enums.State
+import com.bluebillywig.bbnativeshared.interfaces.ContentItemInterface
 import com.bluebillywig.bbnativeshared.model.MediaClip
+import com.bluebillywig.bbnativeshared.model.MediaClipList
 import com.bluebillywig.bbnativeshared.model.Playout
 import com.bluebillywig.bbnativeshared.model.Project
 
@@ -40,7 +42,12 @@ class ApiFragment : Fragment(), BBNativePlayerViewDelegate {
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		playerView = BBNativePlayer.createPlayerView(requireActivity(), "https://demo.bbvms.com/p/default/c/4256615.json")
+		playerView = BBNativePlayer.createPlayerView(requireActivity(), "https://demo.bbvms.com/p/standard/c/4256615.json")
+//		playerView = BBNativePlayer.createPlayerView(requireActivity(),"https://omroepbrabant.bbvms.com/p/omroepbrabant_videoplayer_android/c/1080520.json")
+//		playerView = BBNativePlayer.createPlayerView(requireActivity(),"https://omroepbrabant.bbvms.com/p/default_nc/c/1080520.json", mapOf("autoPlay" to true))
+//		playerView = BBNativePlayer.createPlayerView(requireActivity(),"https://omroepbrabant.bbvms.com/p/bbw_ios_test/c/1080520.json", mapOf("autoPlay" to true))
+//		playerView = BBNativePlayer.createPlayerView(requireActivity(),"https://omroepbrabant.bbvms.com/p/bbw_ios_test/c/1080520.json")
+
 		playerView.delegate = this
 	}
 
@@ -223,6 +230,11 @@ class ApiFragment : Fragment(), BBNativePlayerViewDelegate {
 
 	override fun didTriggerMediaClipLoaded(playerView: BBNativePlayerView, clipData: MediaClip?) {
 		addToEventDebugTextfield("Player API Delegate: didTriggerMediaClipLoaded")
+		val relItems: MutableList<ContentItemInterface> = mutableListOf()
+        relItems.add(MediaClip("5840924")) // Starten als zzp’er | KVK
+        relItems.add(Project("7826")) // Forced to Flee
+        relItems.add(MediaClipList("1683186215329232")) // Local Legends
+		playerView.player?.relatedItems = relItems
 	}
 
 	override fun didTriggerMediaClipFailed(playerView: BBNativePlayerView, ) {
