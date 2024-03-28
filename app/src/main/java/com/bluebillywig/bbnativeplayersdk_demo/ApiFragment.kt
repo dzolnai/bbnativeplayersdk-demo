@@ -231,9 +231,9 @@ class ApiFragment : Fragment(), BBNativePlayerViewDelegate {
 	override fun didTriggerMediaClipLoaded(playerView: BBNativePlayerView, clipData: MediaClip?) {
 		addToEventDebugTextfield("Player API Delegate: didTriggerMediaClipLoaded")
 		val relItems: MutableList<ContentItemInterface> = mutableListOf()
-        relItems.add(MediaClip("5840924")) // Starten als zzp’er | KVK
-        relItems.add(Project("7826")) // Forced to Flee
-        relItems.add(MediaClipList("1683186215329232")) // Local Legends
+		relItems.add(MediaClip("5840924")) // Starten als zzp’er | KVK
+		relItems.add(Project("7826")) // Forced to Flee
+		relItems.add(MediaClipList("1683186215329232")) // Local Legends
 		playerView.player?.relatedItems = relItems
 	}
 
