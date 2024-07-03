@@ -16,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.navigation.Navigation.findNavController
 import com.bluebillywig.bbnativeshared.Logger
+import com.bluebillywig.bbnativeplayersdk.BBNativePlayer
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,6 +25,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         Logger.d("MainActivity - onCreate","The real size = " + getScreenWidth(this) + " x " + getScreenHeight(this))
+
+        val castButton = BBNativePlayer.createChromecastButton(this)
 
         // TODO Remove the top bar in landscape
 //        val layout = findViewById<ConstraintLayout>(R.id.subLayout)

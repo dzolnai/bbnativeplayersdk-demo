@@ -11,6 +11,7 @@ import android.widget.NumberPicker
 import android.widget.NumberPicker.OnScrollListener.SCROLL_STATE_IDLE
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+
 import com.bluebillywig.bbnativeplayersdk.BBNativePlayer
 import com.bluebillywig.bbnativeplayersdk.BBNativePlayerAPI
 import com.bluebillywig.bbnativeplayersdk.BBNativePlayerView
@@ -42,7 +43,8 @@ class ApiFragment : Fragment(), BBNativePlayerViewDelegate {
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		playerView = BBNativePlayer.createPlayerView(requireActivity(), "https://demo.bbvms.com/p/standard/c/4256615.json")
+//		playerView = BBNativePlayer.createPlayerView(requireActivity(), "https://demo.bbvms.com/p/standard/c/4256615.json")
+		playerView = BBNativePlayer.createPlayerView(requireActivity(), "https://testsuite.acc.bbvms.com/p/puc_chromecast_airplay/c/7709.json")
 //		playerView = BBNativePlayer.createPlayerView(requireActivity(),"https://omroepbrabant.bbvms.com/p/omroepbrabant_videoplayer_android/c/1080520.json")
 //		playerView = BBNativePlayer.createPlayerView(requireActivity(),"https://omroepbrabant.bbvms.com/p/default_nc/c/1080520.json", mapOf("autoPlay" to true))
 //		playerView = BBNativePlayer.createPlayerView(requireActivity(),"https://omroepbrabant.bbvms.com/p/bbw_ios_test/c/1080520.json", mapOf("autoPlay" to true))
