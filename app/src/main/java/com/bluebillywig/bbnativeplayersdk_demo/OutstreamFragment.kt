@@ -104,7 +104,7 @@ class OutstreamFragment : Fragment(), BBNativePlayerViewDelegate, CoroutineScope
 	}
 
 	override fun onDestroy() {
-		playerView.destroy()
+		playerView.__destruct()
 		super.onDestroy()
 	}
 

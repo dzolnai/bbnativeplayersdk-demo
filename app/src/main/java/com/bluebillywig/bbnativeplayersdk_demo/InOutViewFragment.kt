@@ -58,7 +58,7 @@ class InOutViewFragment : Fragment(), BBNativePlayerViewDelegate {
 	}
 
 	override fun onDestroy() {
-		playerView.destroy()
+		playerView.__destruct()
 		super.onDestroy()
 	}
 
