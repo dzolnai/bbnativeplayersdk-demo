@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 
         Logger.d("MainActivity - onCreate","The real size = " + getScreenWidth(this) + " x " + getScreenHeight(this))
 
-        val castButton = BBNativePlayer.createChromecastButton(this)
+        val dummy = BBNativePlayer.createChromecastButton(this)
 
         // TODO Remove the top bar in landscape
 //        val layout = findViewById<ConstraintLayout>(R.id.subLayout)
