@@ -24,6 +24,7 @@ class LauncherFragment : Fragment(), LifecycleObserver {
 		addOnClickListener(view, R.id.videoListButton, R.id.action_launcherFragment_to_videoListFragment)
 		addOnClickListener(view, R.id.inOutViewButton, R.id.action_launcherFragment_to_inOutViewFragment)
 		addOnClickListener(view, R.id.webviewButton, R.id.action_launcherFragment_to_webviewFragment)
+		addOnClickListener(view, R.id.shortsButton, R.id.action_launcherFragment_to_shortsFragment)
 
 		view.findViewById<Button>(R.id.outstreamButton).setOnClickListener {
 			val jsonUrl = view.findViewById<EditText>(R.id.outstreamTextField)?.text.toString()

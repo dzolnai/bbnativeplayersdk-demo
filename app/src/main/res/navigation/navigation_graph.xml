@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_launcherFragment_to_webviewFragment"
             app:destination="@id/webViewFragment" />
+        <action
+            android:id="@+id/action_launcherFragment_to_shortsFragment"
+            app:destination="@id/shortsFragment" />
     </fragment>
 
     <fragment
@@ -64,5 +67,10 @@
         android:name="com.bluebillywig.bbnativeplayersdk_demo.WebViewFragment"
         android:label="fragment_webview"
         tools:layout="@layout/fragment_webview" />
+    <fragment
+        android:id="@+id/shortsFragment"
+        android:name="com.bluebillywig.bbnativeplayersdk_demo.ShortsFragment"
+        android:label="fragment_shorts"
+        tools:layout="@layout/fragment_shorts" />
 
 </navigation>
