@@ -44,7 +44,7 @@ class ApiFragment : Fragment(), BBNativePlayerViewDelegate {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 //		playerView = BBNativePlayer.createPlayerView(requireActivity(), "https://demo.bbvms.com/p/standard/c/4256615.json")
-		playerView = BBNativePlayer.createPlayerView(requireActivity(), "https://testsuite.acc.bbvms.com/p/puc_chromecast_airplay/c/7709.json")
+		playerView = BBNativePlayer.createPlayerView(requireActivity(), "https://limburg.bbvms.com/p/regiogroei_1limburg_app_videoplayer_android/q/sourceid_string%3A2764083.json")
 //		playerView = BBNativePlayer.createPlayerView(requireActivity(),"https://omroepbrabant.bbvms.com/p/omroepbrabant_videoplayer_android/c/1080520.json")
 //		playerView = BBNativePlayer.createPlayerView(requireActivity(),"https://omroepbrabant.bbvms.com/p/default_nc/c/1080520.json", mapOf("autoPlay" to true))
 //		playerView = BBNativePlayer.createPlayerView(requireActivity(),"https://omroepbrabant.bbvms.com/p/bbw_ios_test/c/1080520.json", mapOf("autoPlay" to true))
