@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentActivity
 import com.bluebillywig.bbnativeplayersdk.BBNativeShorts
 import com.bluebillywig.bbnativeplayersdk.BBNativeShortsView
 import com.bluebillywig.bbnativeplayersdk.BBNativeShortsViewDelegate
+import com.bluebillywig.bbnativeshared.Logger
 import com.bluebillywig.bbnativeshared.enums.ApiMethod
 
 /**
@@ -25,8 +26,16 @@ class ShortsFragment : Fragment(), BBNativeShortsViewDelegate {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        var jsonUrl: String? = "https://demo.bbvms.com/sh/58.json"
+        val arguments_ = arguments
+        if (arguments_ != null) {
+            jsonUrl = arguments_.getString("jsonUrl")
+        }
+        Logger.d("ShortsFragment", "json url: $jsonUrl")
+
         fragmentActivity = requireActivity()
-        shortsView = BBNativeShorts.createShortsView(fragmentActivity, "https://demo.bbvms.com/sh/58.json")
+        shortsView = BBNativeShorts.createShortsView(fragmentActivity, jsonUrl)
 
         shortsView.delegate = this
     }

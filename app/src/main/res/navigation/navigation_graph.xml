@@ -71,6 +71,10 @@
         android:id="@+id/shortsFragment"
         android:name="com.bluebillywig.bbnativeplayersdk_demo.ShortsFragment"
         android:label="fragment_shorts"
-        tools:layout="@layout/fragment_shorts" />
+        tools:layout="@layout/fragment_shorts">
+        <argument
+            android:name="jsonUrl"
+            app:argType="string" />
+    </fragment>
 
 </navigation>
