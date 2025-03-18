@@ -170,5 +170,38 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/webviewButton"
                 app:layout_constraintTop_toBottomOf="@+id/shortsTextField" />
+
+            <EditText
+                android:id="@+id/shortsShelfTextField"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/gradient_inoutview"
+                android:text="https://demo.bbvms.com/sh/58.json"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="12dp"
+                app:layout_constraintStart_toEndOf="@+id/shortsButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/webviewButton" />
+
+            <com.bluebillywig.bbnativeplayersdk_demo.SquareButton
+                android:id="@+id/shortsShelfButton"
+                android:layout_width="0dp"
+                android:layout_height="132dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/gradient_inoutview"
+                android:text="@string/shortsShelfButtonText"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnPrimary"
+                app:layout_constraintStart_toEndOf="@+id/shortsButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/shortsShelfTextField" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

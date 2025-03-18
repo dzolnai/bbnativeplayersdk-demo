@@ -35,6 +35,11 @@ class LauncherFragment : Fragment(), LifecycleObserver {
 			val bundle = bundleOf("jsonUrl" to jsonUrl)
 			Navigation.findNavController(view).navigate(R.id.action_launcherFragment_to_shortsFragment, bundle)
 		}
+		view.findViewById<Button>(R.id.shortsShelfButton).setOnClickListener {
+			val jsonUrl = view.findViewById<EditText>(R.id.shortsShelfTextField)?.text.toString()
+			val bundle = bundleOf("jsonUrl" to jsonUrl)
+			Navigation.findNavController(view).navigate(R.id.action_launcherFragment_to_shortsShelfFragment, bundle)
+		}
 		view.findViewById<Button>(R.id.prePostRollButton).setOnClickListener {
 			PlayerDialogFragment("https://demo.bbvms.com/p/native_sdk_preroll/c/4256600.json").show(requireActivity().supportFragmentManager,"player")
 		}
