@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/splash"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:screenOrientation="portrait"
     android:theme="@android:style/Theme"
     android:windowActionBar="true"
@@ -29,7 +29,7 @@
             <com.bluebillywig.bbnativeplayersdk_demo.SquareButton
                 android:id="@+id/apiButton"
                 android:layout_width="0dp"
-                android:layout_height="180dp"
+                android:layout_height="120dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/gradient_api"
@@ -46,7 +46,7 @@
             <com.bluebillywig.bbnativeplayersdk_demo.SquareButton
                 android:id="@+id/videoListButton"
                 android:layout_width="0dp"
-                android:layout_height="180dp"
+                android:layout_height="120dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
@@ -62,7 +62,7 @@
             <com.bluebillywig.bbnativeplayersdk_demo.SquareButton
                 android:id="@+id/inOutViewButton"
                 android:layout_width="0dp"
-                android:layout_height="180dp"
+                android:layout_height="120dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/gradient_inoutview"
@@ -94,7 +94,7 @@
             <com.bluebillywig.bbnativeplayersdk_demo.SquareButton
                 android:id="@+id/outstreamButton"
                 android:layout_width="0dp"
-                android:layout_height="132dp"
+                android:layout_height="72dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="16dp"
@@ -110,7 +110,7 @@
             <com.bluebillywig.bbnativeplayersdk_demo.SquareButton
                 android:id="@+id/prePostRollButton"
                 android:layout_width="0dp"
-                android:layout_height="180dp"
+                android:layout_height="120dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/gradient_prepostroll"
@@ -125,7 +125,7 @@
             <com.bluebillywig.bbnativeplayersdk_demo.SquareButton
                 android:id="@+id/webviewButton"
                 android:layout_width="0dp"
-                android:layout_height="180dp"
+                android:layout_height="120dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
@@ -158,7 +158,7 @@
             <com.bluebillywig.bbnativeplayersdk_demo.SquareButton
                 android:id="@+id/shortsButton"
                 android:layout_width="0dp"
-                android:layout_height="132dp"
+                android:layout_height="72dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="16dp"
@@ -191,7 +191,7 @@
             <com.bluebillywig.bbnativeplayersdk_demo.SquareButton
                 android:id="@+id/shortsShelfButton"
                 android:layout_width="0dp"
-                android:layout_height="132dp"
+                android:layout_height="72dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="16dp"
@@ -203,5 +203,37 @@
                 app:layout_constraintStart_toEndOf="@+id/shortsButton"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/shortsShelfTextField" />
+            <EditText
+                android:id="@+id/rendererTextField"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/gradient_outstream"
+                android:text="https://demo.bbvms.com/r/puc_outstream_skinless.json"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="12dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/webviewButton"
+                app:layout_constraintTop_toBottomOf="@+id/shortsButton" />
+
+            <com.bluebillywig.bbnativeplayersdk_demo.SquareButton
+                android:id="@+id/rendererButton"
+                android:layout_width="0dp"
+                android:layout_height="72dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/gradient_outstream"
+                android:text="@string/rendererButtonText"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnPrimary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/webviewButton"
+                app:layout_constraintTop_toBottomOf="@+id/rendererTextField" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

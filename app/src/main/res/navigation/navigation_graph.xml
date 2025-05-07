@@ -34,6 +34,9 @@
         <action
             android:id="@+id/action_launcherFragment_to_shortsShelfFragment"
             app:destination="@id/shortsShelfFragment" />
+        <action
+            android:id="@+id/action_launcherFragment_to_rendererFragment"
+            app:destination="@id/rendererFragment" />
     </fragment>
 
     <fragment
@@ -84,6 +87,15 @@
         android:name="com.bluebillywig.bbnativeplayersdk_demo.ShortsShelfFragment"
         android:label="fragment_shorts_shelf"
         tools:layout="@layout/fragment_shorts_shelf">
+        <argument
+            android:name="jsonUrl"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/rendererFragment"
+        android:name="com.bluebillywig.bbnativeplayersdk_demo.RendererFragment"
+        android:label="fragment_renderer"
+        tools:layout="@layout/fragment_renderer">
         <argument
             android:name="jsonUrl"
             app:argType="string" />
