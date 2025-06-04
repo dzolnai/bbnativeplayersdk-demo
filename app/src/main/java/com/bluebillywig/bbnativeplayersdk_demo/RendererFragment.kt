@@ -38,7 +38,7 @@ class RendererFragment : Fragment(), BBNativePlayerViewDelegate {
 		Logger.d("RendererFragment", "json url: $jsonUrl")
 
 		fragmentActivity = requireActivity()
-		rendererView = BBNativeRenderer.createRendererView(fragmentActivity, jsonUrl)
+		rendererView = BBNativeRenderer.createRendererView(fragmentActivity, jsonUrl, mapOf("overscanAd" to true))
 		rendererView.id = View.generateViewId()
 		val rendererLayoutParams = ViewGroup.LayoutParams(600, 500)
 		rendererView.layoutParams = rendererLayoutParams
