@@ -37,6 +37,9 @@
         <action
             android:id="@+id/action_launcherFragment_to_rendererFragment"
             app:destination="@id/rendererFragment" />
+        <action
+            android:id="@+id/action_launcherFragment_to_multiPlayerFragment"
+            app:destination="@id/multiPlayerFragment" />
     </fragment>
 
     <fragment
@@ -99,6 +102,12 @@
         <argument
             android:name="jsonUrl"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/multiPlayerFragment"
+        android:name="com.bluebillywig.bbnativeplayersdk_demo.MultiPlayerFragment"
+        android:label="fragment_multi_player"
+        tools:layout="@layout/fragment_multi_player">
     </fragment>
 
 </navigation>

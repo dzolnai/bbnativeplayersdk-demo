@@ -187,7 +187,6 @@
                 app:layout_constraintStart_toEndOf="@+id/shortsButton"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/webviewButton" />
-
             <com.bluebillywig.bbnativeplayersdk_demo.SquareButton
                 android:id="@+id/shortsShelfButton"
                 android:layout_width="0dp"
@@ -203,6 +202,7 @@
                 app:layout_constraintStart_toEndOf="@+id/shortsButton"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/shortsShelfTextField" />
+
             <EditText
                 android:id="@+id/rendererTextField"
                 android:layout_width="0dp"
@@ -219,7 +219,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/webviewButton"
                 app:layout_constraintTop_toBottomOf="@+id/shortsButton" />
-
             <com.bluebillywig.bbnativeplayersdk_demo.SquareButton
                 android:id="@+id/rendererButton"
                 android:layout_width="0dp"
@@ -235,5 +234,21 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/webviewButton"
                 app:layout_constraintTop_toBottomOf="@+id/rendererTextField" />
+
+            <com.bluebillywig.bbnativeplayersdk_demo.SquareButton
+                android:id="@+id/multiPlayerButton"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/gradient_videolist"
+                android:text="@string/multiPlayerButtonText"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnPrimary"
+                app:layout_constraintStart_toEndOf="@+id/rendererButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/shortsShelfButton" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
