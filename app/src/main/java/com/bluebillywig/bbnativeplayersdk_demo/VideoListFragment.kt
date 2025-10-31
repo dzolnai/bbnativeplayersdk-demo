@@ -72,8 +72,14 @@ class VideoListFragment : Fragment(), CoroutineScope {
 			clipList = jsonParser.decodeFromString(repoListJsonStr)
 
 			clipList.items?.forEachIndexed { index, it ->
-				val url = "${baseUrl}/p/default/c/${it.id}.json"
-				Logger.d("VideoListFragment", "fetchVideos clip: $url")
+                val url = listOf(
+                    "https://rijnmond.bbvms.com/p/regiogroei_rijnmond_android_videoplayer/q/sourceid_string%3A2077139.json",
+                    "https://rijnmond.bbvms.com/p/regiogroei_rijnmond_android_videoplayer/q/sourceid_string%3A2077133.json",
+                    "https://rijnmond.bbvms.com/p/regiogroei_rijnmond_android_videoplayer/q/sourceid_string%3A2069991.json",
+                    "https://rijnmond.bbvms.com/p/regiogroei_rijnmond_android_videoplayer/q/sourceid_string%3A2069977.json"
+                )[index % 4]
+
+                Logger.d("VideoListFragment", "fetchVideos clip: $url")
 
 				context?.let { context ->
 					val thumbnailUrl =
