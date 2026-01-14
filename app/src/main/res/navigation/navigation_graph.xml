@@ -46,7 +46,11 @@
         android:id="@+id/apiFragment"
         android:name="com.bluebillywig.bbnativeplayersdk_demo.ApiFragment"
         android:label="fragment_api"
-        tools:layout="@layout/fragment_api" />
+        tools:layout="@layout/fragment_api">
+        <argument
+            android:name="jsonUrl"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/videoListFragment"
         android:name="com.bluebillywig.bbnativeplayersdk_demo.VideoListFragment"

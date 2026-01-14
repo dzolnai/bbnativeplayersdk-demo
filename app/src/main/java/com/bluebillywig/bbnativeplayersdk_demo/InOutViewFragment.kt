@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentActivity
 import com.bluebillywig.bbnativeplayersdk.BBNativePlayer
 import com.bluebillywig.bbnativeplayersdk.BBNativePlayerView
 import com.bluebillywig.bbnativeplayersdk.BBNativePlayerViewDelegate
+import com.bluebillywig.bbnativeshared.Logger
 import com.bluebillywig.bbnativeshared.enums.ApiMethod
 
 /**
@@ -26,8 +27,16 @@ class InOutViewFragment : Fragment(), BBNativePlayerViewDelegate {
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
+
+		var jsonUrl: String? = "https://demo.bbvms.com/p/native_sdk_inoutview/c/4256635.json"
+		val arguments_ = arguments
+		if (arguments_ != null) {
+			jsonUrl = arguments_.getString("jsonUrl")
+		}
+		Logger.d("ApiFragment", "json url: $jsonUrl")
+
 		fragmentActivity = requireActivity()
-		playerView = BBNativePlayer.createPlayerView(fragmentActivity, "https://demo.bbvms.com/p/native_sdk_inoutview/c/4256635.json", mapOf("noChromeCast" to false))
+		playerView = BBNativePlayer.createPlayerView(fragmentActivity, jsonUrl, mapOf("noChromeCast" to false))
 
 		playerView.delegate = this
 

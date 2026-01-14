@@ -20,12 +20,21 @@ class LauncherFragment : Fragment(), LifecycleObserver {
 	): View {
 		val view = inflater.inflate(R.layout.fragment_launcher, container, false)
 
-		addOnClickListener(view, R.id.apiButton, R.id.action_launcherFragment_to_apiFragment)
+
 		addOnClickListener(view, R.id.videoListButton, R.id.action_launcherFragment_to_videoListFragment)
-		addOnClickListener(view, R.id.inOutViewButton, R.id.action_launcherFragment_to_inOutViewFragment)
 		addOnClickListener(view, R.id.webviewButton, R.id.action_launcherFragment_to_webviewFragment)
 		addOnClickListener(view, R.id.multiPlayerButton, R.id.action_launcherFragment_to_multiPlayerFragment)
 
+		view.findViewById<Button>(R.id.apiButton).setOnClickListener {
+			val jsonUrl = view.findViewById<EditText>(R.id.apiTextField)?.text.toString()
+			val bundle = bundleOf("jsonUrl" to jsonUrl)
+			Navigation.findNavController(view).navigate(R.id.action_launcherFragment_to_apiFragment, bundle)
+		}
+		view.findViewById<Button>(R.id.inOutViewButton).setOnClickListener {
+			val jsonUrl = view.findViewById<EditText>(R.id.inOutViewTextField)?.text.toString()
+			val bundle = bundleOf("jsonUrl" to jsonUrl)
+			Navigation.findNavController(view).navigate(R.id.action_launcherFragment_to_inOutViewFragment, bundle)
+		}
 		view.findViewById<Button>(R.id.outstreamButton).setOnClickListener {
 			val jsonUrl = view.findViewById<EditText>(R.id.outstreamTextField)?.text.toString()
 			val bundle = bundleOf("jsonUrl" to jsonUrl)

@@ -16,6 +16,7 @@ import com.bluebillywig.bbnativeplayersdk.BBNativePlayer
 import com.bluebillywig.bbnativeplayersdk.BBNativePlayerAPI
 import com.bluebillywig.bbnativeplayersdk.BBNativePlayerView
 import com.bluebillywig.bbnativeplayersdk.BBNativePlayerViewDelegate
+import com.bluebillywig.bbnativeshared.Logger
 import com.bluebillywig.bbnativeshared.enums.ApiMethod
 import com.bluebillywig.bbnativeshared.enums.ApiProperty
 import com.bluebillywig.bbnativeshared.enums.Phase
@@ -43,8 +44,16 @@ class ApiFragment : Fragment(), BBNativePlayerViewDelegate {
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
+
+		var jsonUrl: String? = "https://testsuite.acc.bbvms.com/p/puc_chromecast_airplay/c/7709.json"
+		val arguments_ = arguments
+		if (arguments_ != null) {
+			jsonUrl = arguments_.getString("jsonUrl")
+		}
+		Logger.d("ApiFragment", "json url: $jsonUrl")
+
 //		playerView = BBNativePlayer.createPlayerView(requireActivity(), "https://demo.bbvms.com/p/standard/c/4256615.json")
-		playerView = BBNativePlayer.createPlayerView(requireActivity(), "https://testsuite.acc.bbvms.com/p/puc_chromecast_airplay/c/7709.json")
+		playerView = BBNativePlayer.createPlayerView(requireActivity(), jsonUrl)
 //		playerView = BBNativePlayer.createPlayerView(requireActivity(),"https://omroepbrabant.bbvms.com/p/omroepbrabant_videoplayer_android/c/1080520.json")
 //		playerView = BBNativePlayer.createPlayerView(requireActivity(),"https://omroepbrabant.bbvms.com/p/default_nc/c/1080520.json", mapOf("autoPlay" to true))
 //		playerView = BBNativePlayer.createPlayerView(requireActivity(),"https://omroepbrabant.bbvms.com/p/bbw_ios_test/c/1080520.json", mapOf("autoPlay" to true))
