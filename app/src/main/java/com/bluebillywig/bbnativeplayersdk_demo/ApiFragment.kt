@@ -27,7 +27,7 @@ import com.bluebillywig.bbnativeshared.model.MediaClipList
 import com.bluebillywig.bbnativeshared.model.Playout
 import com.bluebillywig.bbnativeshared.model.Project
 
-private var pickerVals = arrayOf("Select API method", "Play", "Pause", "Seek", "Mute", "Unmute", "Load","getMuted", "getDuration", "getPhase", "getState", "getMode", "getClipData", "getPlayoutData", "getProjectData", "getVolume", "OpenModalPlayer")
+private var pickerVals = arrayOf("Select API method", "Play", "Pause", "Seek", "Seek +10 (relative)", "Seek -10 (relative)", "Mute", "Unmute", "Load","getMuted", "getDuration", "getPhase", "getState", "getMode", "getClipData", "getPlayoutData", "getProjectData", "getVolume", "OpenModalPlayer")
 
 /**
  * An api list [Fragment] subclass.
@@ -145,6 +145,12 @@ class ApiFragment : Fragment(), BBNativePlayerViewDelegate {
 			}
 			"Seek" -> {
 				playerView.player?.seek(10.0)
+			}
+			"Seek +10 (relative)" -> {
+				playerView.player?.seek(10.0, true)
+			}
+			"Seek -10 (relative)" -> {
+				playerView.player?.seek(-10.0, true)
 			}
 			"Mute" -> {
 				playerView.player?.muted = true
