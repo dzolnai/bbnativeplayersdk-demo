@@ -1,17 +1,16 @@
 plugins {
     id 'com.android.application'
-    id 'kotlin-android'
     id 'org.jetbrains.kotlin.plugin.serialization'
 }
 
 android {
     compileSdk 35
-    buildToolsVersion "34.0.0"
+    buildToolsVersion "36.0.0"
 
     defaultConfig {
         applicationId "com.bluebillywig.bbnativeplayersdk_demo"
         minSdkVersion 26
-        targetSdkVersion 34
+        targetSdkVersion 36
         versionCode 1
         versionName "1.0"
 
@@ -31,9 +30,6 @@ android {
         coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
-    }
-    kotlinOptions {
-        jvmTarget = '17'
     }
     packagingOptions {
         resources {
